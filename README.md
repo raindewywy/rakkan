@@ -118,6 +118,40 @@
 
 ---
 
+# 9\. กระบวนการทำงาน (Process, Methods, and Tools)
+
+## 9.1 กระบวนการพัฒนา (Development Process)
+
+โครงการนี้พัฒนาตามแนวคิด Agile/Scrum ควบคู่กับ Software Development Life Cycle (SDLC) โดยแบ่งการทำงานเป็นรอบ (Sprint) แต่ละรอบประกอบด้วย:
+
+1. Requirement Gathering — สัมภาษณ์เพื่อนนอกกลุ่มเพื่อเก็บ Requirement จริง พร้อมอัดวิดีโอประกอบ  
+2. Requirement Analysis — วิเคราะห์สิ่งที่ได้จากการสัมภาษณ์ แล้วแปลงเป็น Functional/Non-Functional Requirement และ User Story  
+3. Product Backlog Creation — นำ User Story มาสร้างเป็น GitHub Issues เพื่อเป็น Product Backlog ของโครงการ  
+4. Sprint Planning — เลือก Issue ที่จะทำใน Sprint นั้น ๆ มาจัดเป็น Milestone (เช่น Sprint 1\)  
+5. Implementation — ลงมือพัฒนา/เขียนงานตาม Issue ที่ได้รับมอบหมาย  
+6. Sprint Review — ตรวจสอบผลงานเทียบกับ Acceptance Criteria ของแต่ละ Issue  
+7. Sprint Retrospective — ทีมประชุมทบทวนสิ่งที่ทำได้ดีและสิ่งที่ควรปรับปรุง พร้อมอัดวิดีโอสรุปผล
+
+## 9.2 เครื่องมือที่ใช้ (Tools)
+
+| เครื่องมือ | วัตถุประสงค์การใช้งาน |
+| :---- | :---- |
+| GitHub (Issues, Milestones, Projects) | จัดการ Source Code, Product Backlog, Sprint Backlog |
+| GitHub Pages | Deploy เว็บแอปพลิเคชัน |
+| VS Code | เขียนโค้ด (HTML/CSS/JavaScript) |
+| Git | Version Control |
+| *Discord / Line* | ประชุมทีมและสัมภาษณ์เก็บ Requirement |
+| *Figma* | ออกแบบหน้าตาเว็บไซต์ (ถ้ามี) |
+| YouTube | เผยแพร่วิดีโอสัมภาษณ์ Requirement และวิดีโอ Retrospective |
+
+## 9.3 วิธีการทำงานร่วมกันของทีม (Team Working Method)
+
+- ใช้ GitHub Issues แทน To-do list ของแต่ละคน แบ่งงานตามความถนัด  
+- ติดตามความคืบหน้าผ่าน Milestone "Sprint 1" ใน GitHub  
+- แต่ละ Issue มีการระบุรายละเอียดงาน (Description) และ Label กำกับประเภทงาน (เช่น documentation, user-story)
+
+---
+
 # 10. Product Backlog และ Sprint Backlog
 
 ## 10.1 Product Backlog
