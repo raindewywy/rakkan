@@ -156,6 +156,14 @@
 | **#21** | FR-2: เลือกประเภทการดูดวง (Love, Career, Finance, etc.) | User Story | `user-story` | *[รอกำหนด]* | Open |
 | **#22** | FR-1: หน้าแรกและคำอธิบายเว็บไซต์ (Homepage & Intro) | User Story | `user-story` | *[รอกำหนด]* | Open |
 | **#23** | video requirements interviews (สัมภาษณ์เพื่อเก็บข้อมูล Requirements) | Documentation | `documentation` | Sprint 1 | Closed |
+| **#24** | [README DOC] เขียนสรุปขั้นตอนการทำ requirement | Documentation | `documentation` | Sprint 1 | Open |
+| **#25** | NFR-1: หน้าเว็บโหลดและตอบสนองอย่างรวดเร็ว (Fast Loading & Response) | User Story | `user-story` | *[รอกำหนด]* | Open |
+| **#26** | NFR-2: รองรับการใช้งาน Mobile, Tablet, Desktop (Responsive Design) | User Story | `user-story` | *[รอกำหนด]* | Open |
+| **#27** | NFR-3: รองรับเบราว์เซอร์ Chrome, Edge, Firefox, Safari (Cross-browser) | User Story | `user-story` | *[รอกำหนด]* | Open |
+| **#28** | NFR-4: ไม่จัดเก็บข้อมูลส่วนตัวของผู้ใช้บน Server (Data Privacy) | User Story | `user-story` | *[รอกำหนด]* | Open |
+| **#29** | NFR-5: ประมวลผลใน Browser ไม่ส่งข้อมูลไป Database (Client-side Only) | User Story | `user-story` | *[รอกำหนด]* | Open |
+| **#30** | NFR-6: โครงสร้างระบบรองรับการเพิ่มประเภทคำทำนายได้ง่าย (Extensibility) | User Story | `user-story` | *[รอกำหนด]* | Open |
+| **#31** | NFR-7: ระบบไม่ล่มเมื่อผู้ใช้กรอกข้อมูลไม่ครบ (Graceful Error Handling) | User Story | `user-story` | *[รอกำหนด]* | Open |
 
 ---
 
@@ -166,7 +174,6 @@
 **ภาพหน้าจอ Sprint Backlog (GitHub Milestone "Sprint 1"):**
 
 ![Sprint Backlog Screenshot](./screenshots/backlog_overview.png)
-![Sprint Backlog Screenshot](./screenshots/sprint1-backlog_open.png)
 ![Sprint Backlog Screenshot](./screenshots/sprint1-backlog_closed.png)
 
 *ภาพหน้าจอ Milestone "Sprint 1" แสดง Progress Bar และรายการ Issue ทั้งหมดที่ถูกผูกไว้กับ Sprint 1*
@@ -178,5 +185,5 @@
 | **ชื่อ Sprint** | Sprint 1 |
 | **ระยะเวลา** | 3 กันยายน 2026 – *ยังไม่กำหนดวันสิ้นสุด* |
 | **เป้าหมายของ Sprint (Sprint Goal)** | วิเคราะห์และกำหนดขอบเขต Requirements, จัดทำโครงร่าง Product Backlog/User Story ทั้งหมด, สรุปกระบวนการทำงานลงใน README.md และบันทึก Retrospective Video สะท้อนปัญหาและแนวทางแก้ไข |
-| **Issues ใน Sprint 1** | **รวม 12 Issues:**<br>• Documentation: #1, #2, #3, #4, #5, #6, #7, #8, #23<br>• Tasks/Video: #9, #10, #11, #12 |
-| **ผลลัพธ์ที่คาดหวัง (Deliverables)** | 1. เอกสารรายงาน (README.md) หัวข้อ 1–10 ครบถ้วนสมบูรณ์<br>2. วิดีโอคลิป Retrospective จำนวน 4 คลิปพร้อมลิงก์ YouTube<br>3. Product Backlog บน GitHub Issues ที่มี User Story (#13–#22) พร้อมสำหรับการวางแผนใน Sprint ถัดไป |
+| **Issues ใน Sprint 1** | **รวม 14 Issues:**<br>• Documentation: #1, #2, #3, #4, #5, #6, #7, #8, #23, #24<br>• Tasks/Video: #9, #10, #11, #12 |
+| **ผลลัพธ์ที่คาดหวัง (Deliverables)** | 1. เอกสารรายงาน (README.md) หัวข้อ 1–10 ครบถ้วนสมบูรณ์<br>2. วิดีโอ Requirements Interview และวิดีโอ Retrospective <br>3. Product Backlog บน GitHub Issues ที่มี User Story ครบทั้ง FR และ NFR (#13–#31) พร้อมสำหรับการวางแผนใน Sprint ถัดไป |
