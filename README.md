@@ -475,8 +475,37 @@ https://www.youtube.com/watch?v=AKPkHgnHAV8
 ---
 # Design Document
 
+### 2.1 Architectural Design
+```mermaid
+graph TD
+    User["User Browser"]
+    
+    subgraph Frontend_UI ["Frontend UI (Figma Screens)"]
+        W1["W1: Home Screen"]
+        W2["W2: Select Type Screen"]
+        W3["W3: Birth Date + Error"]
+        W4["W4: Calendar + Processing"]
+        W5["W5: Result Screen"]
+    end
+    
+    subgraph Backend_Endpoint ["Proposed Backend Processing"]
+        API["Proposed POST /api/v1/predict"]
+        Logic["Fortune Calculation Logic"]
+    end
+
+    User -->|"1. Start"| W1
+    W1 -->|"2. Select Fortune Type"| W2
+    W2 -->|"3. Enter Birth Date"| W3
+    W3 -->|"4. Continue"| W4
+    W4 -->|"5. Submit Input"| API
+    API -->|"6. Calculate Fortune"| Logic
+    Logic -->|"7. Generate Result"| API
+    API -->|"8. Return Result"| W5
+    W5 -->|"9. View Fortune Result"| User
+```
+
 ## User usecase
-``` Mermaid
+```mermaid
 graph TB
     User(("👤<br/>ผู้ใช้งาน<br/>(User)"))
 
@@ -512,3 +541,4 @@ graph TB
     classDef usecase fill:#e8f0fe,stroke:#4a6fa5,stroke-width:1.5px;
     class User actor;
     class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10 usecase;
+```
