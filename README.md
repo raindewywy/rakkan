@@ -471,3 +471,44 @@ https://youtu.be/lopJD8CxQZ0
 5. สิ่งที่จะทำใน sprint ถัดไป
 
 https://www.youtube.com/watch?v=AKPkHgnHAV8
+
+---
+# Design Document
+
+## User usecase
+``` Mermaid
+graph TB
+    User(("👤<br/>ผู้ใช้งาน<br/>(User)"))
+
+    subgraph System["ระบบดูดวงออนไลน์ (Fortune Telling Web Application)"]
+        UC1["UC-01<br/>ดูหน้าแรกและข้อมูลแนะนำเว็บไซต์"]
+        UC2["UC-02<br/>เลือกประเภทการดูดวง"]
+        UC3["UC-03<br/>กรอกข้อมูลวันเดือนปีเกิด"]
+        UC4["UC-04<br/>ตรวจสอบความถูกต้องของข้อมูล"]
+        UC5["UC-05<br/>แสดงข้อความแจ้งเตือนข้อผิดพลาด"]
+        UC6["UC-06<br/>ประมวลผลคำทำนาย<br/>(Fortune Algorithm)"]
+        UC7["UC-07<br/>คัดเลือกคำทำนายตามผลลัพธ์"]
+        UC8["UC-08<br/>แสดงผลคำทำนาย"]
+        UC9["UC-09<br/>แสดงคำแนะนำที่เกี่ยวข้อง"]
+        UC10["UC-10<br/>เริ่มดูดวงใหม่"]
+    end
+
+    User --- UC1
+    User --- UC2
+    User --- UC3
+    User --- UC8
+    User --- UC9
+    User --- UC10
+
+    UC3 -.->|&laquo;include&raquo;| UC4
+    UC4 -.->|&laquo;extend&raquo;| UC5
+    UC4 -.->|&laquo;include&raquo;| UC6
+    UC6 -.->|&laquo;include&raquo;| UC7
+    UC7 -.->|&laquo;include&raquo;| UC8
+    UC8 -.->|&laquo;include&raquo;| UC9
+    UC10 -.->|&laquo;include&raquo;| UC2
+
+    classDef actor fill:#ffe8d6,stroke:#c8553d,stroke-width:2px;
+    classDef usecase fill:#e8f0fe,stroke:#4a6fa5,stroke-width:1.5px;
+    class User actor;
+    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10 usecase;
