@@ -474,9 +474,6 @@ https://www.youtube.com/watch?v=AKPkHgnHAV8
 
 ---
 
-# Design Specification
-![Design Specification](./screenshots/design-specification.webp)
-
 # Design Document
 
 ### 1. Architectural Design
@@ -545,4 +542,25 @@ graph TB
     classDef usecase fill:#e8f0fe,stroke:#4a6fa5,stroke-width:1.5px;
     class User actor;
     class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10 usecase;
-```
+
+# Design Specification
+![Design Specification](./screenshots/design-specification.webp)
+
+# Process, Methods, and Tools
+
+**กระบวนการทำงาน (Process, Methods, and Tools ที่เพิ่มเติมจาก Phase 1)**
+
+ใน Phase 2 ทีมได้นำเครื่องมือและกำหนดข้อตกลงในการทำงานเพิ่มเติมเพื่อให้การพัฒนา Prototype เป็นระบบมากขึ้น ดังนี้:
+
+- **เครื่องมือและการ Track Status (Git Kanban):**
+  - ใช้ GitHub Projects (Kanban Board) ในการจัดการงาน โดยแบ่งเป็น 4 คอลัมน์: To Do, In Progress, Review, และ Done
+- **ความบ่อยของการ Scrum (Scrum Frequency):**
+  - ทีมมีการนัดทำ Stand-up Meeting ผ่าน Discord สัปดาห์ละ 1 ครั้ง ใช้เวลาครั้งละ 15 นาที เพื่ออัปเดตว่า: เมื่อวานทำอะไร, วันนี้จะทำอะไร, และติดปัญหาอะไรหรือไม่
+- **การกำหนด Format ของ Commit Message:**
+  - ใช้หลักการ Conventional Commits เพื่อให้เข้าใจง่าย เช่น:
+    - `feat: เพิ่มหน้าจอเลือกประเภทการดูดวง` (สำหรับฟีเจอร์ใหม่)
+    - `fix: แก้ไขบั๊ก calendar picker ไม่แสดงผล` (สำหรับการแก้บั๊ก)
+    - `ui: ปรับสีปุ่มให้ตรงกับ figma` (สำหรับงานปรับแต่ง UI)
+- **การสื่อสารในช่วงการทำ Project:**
+  - **Discord:** ใช้สำหรับการประชุมหลัก, แชร์หน้าจอทำ UI design ร่วมกัน
+  - **LINE Group:** ใช้สำหรับตามงานด่วน, แจ้งเตือนเมื่อมี Pull Request ที่ต้องรีวิว, และการคุยงานทั่วไป
