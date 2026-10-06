@@ -475,7 +475,7 @@ https://www.youtube.com/watch?v=AKPkHgnHAV8
 ---
 # Design Document
 
-### Design Specification
+### 1. Design Specification
 ![Design Specification](./screenshots/design-specification.webp)
 
 ### 2.1 Architectural Design
