@@ -476,7 +476,7 @@ https://www.youtube.com/watch?v=AKPkHgnHAV8
 
 # สรุป Sprint Retrospective: Phase 2
 
-วันที่: 6/10/2569
+วันที่: 6/10/2569  
 หัวข้อหลัก: การทบทวนการทำงานของ Phase 2
 
 รายละเอียดภายในวิดีโอ
