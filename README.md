@@ -542,6 +542,7 @@ graph TB
     classDef usecase fill:#e8f0fe,stroke:#4a6fa5,stroke-width:1.5px;
     class User actor;
     class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10 usecase;
+```
 
 # Design Specification
 ![Design Specification](./screenshots/design-specification.webp)
