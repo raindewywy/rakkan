@@ -473,12 +473,13 @@ https://youtu.be/lopJD8CxQZ0
 https://www.youtube.com/watch?v=AKPkHgnHAV8
 
 ---
-# Design Document
 
-### 1. Design Specification
+# Design Specification
 ![Design Specification](./screenshots/design-specification.webp)
 
-### 2.1 Architectural Design
+# Design Document
+
+### 1. Architectural Design
 ```mermaid
 graph TD
     User["User Browser"]
@@ -507,7 +508,7 @@ graph TD
     W5 -->|"9. View Fortune Result"| User
 ```
 
-## User usecase
+### 2. User usecase
 ```mermaid
 graph TB
     User(("👤<br/>ผู้ใช้งาน<br/>(User)"))
