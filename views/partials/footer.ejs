@@ -1,0 +1,9 @@
+<% var tf = locals.tr || function (th, en) { return en; }; %>
+<footer class="site-footer">
+  <small>Astra · <%= tf('เพื่อความบันเทิงเท่านั้น', 'For entertainment only') %></small>
+</footer>
+<% (locals.scripts || []).forEach(function (src) { %>
+<script src="<%= src %>" defer></script>
+<% }); %>
+</body>
+</html>

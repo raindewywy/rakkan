@@ -1,0 +1,34 @@
+<% var t = locals.tr || function (th, en) { return en; }; %>
+<!DOCTYPE html>
+<html lang="<%= locals.lang || 'th' %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= locals.title ? locals.title + ' | Astra' : 'Astra' %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <% (locals.styles || []).forEach(function (href) { %>
+  <link rel="stylesheet" href="<%= href %>">
+  <% }); %>
+</head>
+<body>
+<a class="skip-link" href="#main"><%= t('ข้ามไปที่เนื้อหา', 'Skip to content') %></a>
+<header class="site-header">
+  <a class="brand" href="/">Astra</a>
+  <nav class="site-nav" aria-label="<%= t('เมนูหลัก', 'Main menu') %>">
+    <a href="/predict"><%= t('ดูดวง', 'Predict') %></a>
+    <a href="/history"><%= t('ประวัติ', 'History') %></a>
+    <a href="/stats"><%= t('สถิติ', 'Stats') %></a>
+  </nav>
+  <div class="site-actions">
+    <span class="lang-toggle"><a href="/lang/th">TH</a><a href="/lang/en">EN</a></span>
+    <% if (locals.user) { %>
+      <span class="user-name"><%= user.displayName %></span>
+      <form method="post" action="/logout">
+        <button class="btn btn-small" type="submit"><%= t('ออกจากระบบ', 'Log out') %></button>
+      </form>
+    <% } %>
+  </div>
+</header>
