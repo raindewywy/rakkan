@@ -6,7 +6,7 @@
  */
 class PredictionHistory {
   constructor() {
-    this.entries = [];
+    this.byUser = new Map();
   }
 
   /**
@@ -19,7 +19,10 @@ class PredictionHistory {
     if (!prediction || !prediction.userId) {
       throw new TypeError('a prediction with a userId is required');
     }
-    this.entries.push(prediction);
+    if (!this.byUser.has(prediction.userId)) {
+      this.byUser.set(prediction.userId, []);
+    }
+    this.byUser.get(prediction.userId).push(prediction);
     return prediction;
   }
 
@@ -29,7 +32,7 @@ class PredictionHistory {
    * @returns {Array} A new array (changing it does not change the history).
    */
   getAll(userId) {
-    return this.entries.filter((entry) => entry.userId === userId);
+    return [...(this.byUser.get(userId) || [])];
   }
 
   /**
@@ -42,6 +45,12 @@ class PredictionHistory {
     return this.getAll(userId).find((entry) => entry.id === id) || null;
   }
 
+  /**
+   * Removes every reading of every user (used by tests).
+   */
+  clear() {
+    this.byUser.clear();
+  }
 
   // ----- sorting (ticket 14) -----
 
