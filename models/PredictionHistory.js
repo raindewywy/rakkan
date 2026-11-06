@@ -9,6 +9,38 @@ class PredictionHistory {
     this.entries = [];
   }
 
+  /**
+   * Saves a reading into the history of its owner.
+   * @param {{userId: string}} prediction - A Prediction (needs userId, id, category, result, createdAt).
+   * @returns {object} The saved prediction.
+   * @throws {TypeError} When the prediction has no userId.
+   */
+  add(prediction) {
+    if (!prediction || !prediction.userId) {
+      throw new TypeError('a prediction with a userId is required');
+    }
+    this.entries.push(prediction);
+    return prediction;
+  }
+
+  /**
+   * Returns the readings of one user in the order they were added.
+   * @param {string} userId - Owner of the readings.
+   * @returns {Array} A new array (changing it does not change the history).
+   */
+  getAll(userId) {
+    return this.entries.filter((entry) => entry.userId === userId);
+  }
+
+  /**
+   * Finds one reading of a user by id.
+   * @param {string} userId - Owner of the reading.
+   * @param {string} id - Reading id.
+   * @returns {object|null} The reading, or null when the user has no reading with that id.
+   */
+  getById(userId, id) {
+    return this.getAll(userId).find((entry) => entry.id === id) || null;
+  }
 
 
   // ----- sorting (ticket 14) -----
