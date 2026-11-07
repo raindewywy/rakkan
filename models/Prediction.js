@@ -1,3 +1,15 @@
+/** The five fortune categories the user can choose from. */
+const CATEGORIES = ['love', 'career', 'finance', 'education', 'life'];
+
+/** Icon and bilingual label for each category (used by the views). */
+const CATEGORY_INFO = {
+  love: { icon: '♡', th: 'ความรัก', en: 'Love' },
+  career: { icon: '◈', th: 'การงาน', en: 'Career' },
+  finance: { icon: '◉', th: 'การเงิน', en: 'Finance' },
+  education: { icon: '✧', th: 'การเรียน', en: 'Education' },
+  life: { icon: '☉', th: 'ภาพรวมชีวิต', en: 'Life overview' }
+};
+
 /**
  * One saved reading.
  * @typedef {object} PredictionResult
@@ -23,6 +35,9 @@ class Prediction {
    * @throws {RangeError} When the category is not one of CATEGORIES.
    */
   constructor(id, userId, category, birthDate, result, createdAt = new Date()) {
+    if (!Prediction.isValidCategory(category)) {
+      throw new RangeError(`Unknown category: ${category}`);
+    }
     this.id = id;
     this.userId = userId;
     this.category = category;
@@ -31,8 +46,16 @@ class Prediction {
     this.createdAt = createdAt;
   }
 
+  /**
+   * Checks whether a value is one of the five categories.
+   * @param {string} category - Value to check.
+   * @returns {boolean} true when valid.
+   */
+  static isValidCategory(category) {
+    return CATEGORIES.includes(category);
+  }
 
 
 }
 
-module.exports = { Prediction };
+module.exports = { Prediction, CATEGORIES, CATEGORY_INFO };
