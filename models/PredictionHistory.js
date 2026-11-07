@@ -53,6 +53,9 @@ class PredictionHistory {
   }
 
   // ----- sorting (ticket 14) -----
+  sortByDate(userId) {
+    return this.getAll(userId).sort((a, b) => a.createdAt - b.createdAt);
+  }
 
   // ----- search (ticket 16) -----
 
