@@ -53,8 +53,15 @@ class PredictionHistory {
   }
 
   // ----- sorting (ticket 14) -----
-  sortByDate(userId) {
-    return this.getAll(userId).sort((a, b) => a.createdAt - b.createdAt);
+  /**
+   * Returns a user's readings sorted by date.
+   * @param {string} userId - Owner of the readings.
+   * @param {'desc'|'asc'} [order='desc'] - 'desc' = newest first (default), 'asc' = oldest first.
+   * @returns {Array} A new sorted array.
+   */
+  sortByDate(userId, order = 'desc') {
+    const direction = order === 'asc' ? 1 : -1;
+    return this.getAll(userId).sort((a, b) => direction * (a.createdAt - b.createdAt));
   }
 
   // ----- search (ticket 16) -----
