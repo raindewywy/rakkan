@@ -55,6 +55,20 @@ class Prediction {
     return CATEGORIES.includes(category);
   }
 
+  /**
+   * Plain object used by JSON.stringify.
+   * @returns {object} The prediction with createdAt as an ISO string.
+   */
+  toJSON() {
+    return {
+      id: this.id,
+      userId: this.userId,
+      category: this.category,
+      birthDate: this.birthDate,
+      result: this.result,
+      createdAt: this.createdAt.toISOString()
+    };
+  }
 
 }
 
