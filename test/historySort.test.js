@@ -37,4 +37,10 @@ describe('PredictionHistory.sortByDate', () => {
 
     expect(history.sortByDate('u1')).toHaveLength(3);
   });
+
+  test('returns an empty array when the user has no readings', () => {
+    expect(history.sortByDate('nobody')).toEqual([]);
+    expect(new PredictionHistory().sortByDate('u1')).toEqual([]);
+    expect(new PredictionHistory().sortByDate('u1', 'asc')).toEqual([]);
+  });
 });
