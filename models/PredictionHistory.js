@@ -53,6 +53,20 @@ class PredictionHistory {
   }
 
   // ----- sorting (ticket 14) -----
+  /**
+   * Returns a user's readings sorted by date.
+   * @param {string} userId - Owner of the readings.
+   * @param {'desc'|'asc'} [order='desc'] - 'desc' = newest first (default), 'asc' = oldest first.
+   * @returns {Array} A new sorted array; an empty array when the user has no readings.
+   */
+  sortByDate(userId, order = 'desc') {
+    const entries = this.getAll(userId);
+    if (entries.length === 0) {
+      return [];
+    }
+    const direction = order === 'asc' ? 1 : -1;
+    return entries.sort((a, b) => direction * (a.createdAt - b.createdAt));
+  }
 
   // ----- search (ticket 16) -----
 
