@@ -71,6 +71,9 @@ class PredictionHistory {
   // ----- search (ticket 16) -----
 
   // ----- filter by category (ticket 19) -----
+  filterByCategory(userId, category) {
+    return this.getAll(userId).filter((entry) => entry.category === category);
+  }
 
   // ----- remove (ticket 20) -----
 
