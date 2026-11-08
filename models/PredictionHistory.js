@@ -73,6 +73,21 @@ class PredictionHistory {
   // ----- filter by category (ticket 19) -----
 
   // ----- remove (ticket 20) -----
+  /**
+   * Deletes one reading. A user can only delete their own readings.
+   * @param {string} userId - Owner of the reading.
+   * @param {string} id - Reading id.
+   * @returns {boolean} true when a reading was removed, false when nothing matched.
+   */
+  remove(userId, id) {
+    const entries = this.byUser.get(userId) || [];
+    const index = entries.findIndex((entry) => entry.id === id);
+    if (index === -1) {
+      return false;
+    }
+    entries.splice(index, 1);
+    return true;
+  }
 
   // ----- statistics (ticket 21) -----
 }
