@@ -6,6 +6,7 @@ const MESSAGES = {
   YEAR_FORMAT: { en: 'Year must have 4 digits.', th: 'ปีต้องมี 4 หลัก' },
   YEAR_RANGE: { en: 'Year must be between 1900 and {max}.', th: 'ปีต้องอยู่ระหว่าง 1900 ถึง {max}' },
   DAY_RANGE: { en: 'Day must be between 1 and 31.', th: 'วันต้องอยู่ระหว่าง 1 ถึง 31' },
+  FUTURE: { en: 'Birth date cannot be in the future.', th: 'วันเกิดต้องไม่อยู่ในอนาคต' }
 };
 
 /**
@@ -62,6 +63,11 @@ function validateBirthDate(input, now = new Date(), lang = 'en') {
   const dayNumber = Number(day);
   if (!Number.isInteger(dayNumber) || dayNumber < 1 || dayNumber > 31) {
     return fail('DAY_RANGE', lang);
+  }
+  const birth = new Date(yearNumber, monthNumber - 1, dayNumber);
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  if (birth > today) {
+    return fail('FUTURE', lang);
   }
 
   const pad = (n) => String(n).padStart(2, '0');
