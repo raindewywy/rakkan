@@ -6,6 +6,7 @@ const MESSAGES = {
   YEAR_FORMAT: { en: 'Year must have 4 digits.', th: 'ปีต้องมี 4 หลัก' },
   YEAR_RANGE: { en: 'Year must be between 1900 and {max}.', th: 'ปีต้องอยู่ระหว่าง 1900 ถึง {max}' },
   DAY_RANGE: { en: 'Day must be between 1 and 31.', th: 'วันต้องอยู่ระหว่าง 1 ถึง 31' },
+  DAY_IN_MONTH: { en: 'This month only has {days} days.', th: 'เดือนนี้มีเพียง {days} วัน' },
   FUTURE: { en: 'Birth date cannot be in the future.', th: 'วันเกิดต้องไม่อยู่ในอนาคต' }
 };
 
@@ -24,6 +25,15 @@ function fail(code, lang, values = {}) {
   return { valid: false, code, message, date: null };
 }
 
+/**
+ * Number of days in a month, leap years included.
+ * @param {number} year - Full year.
+ * @param {number} month - Month 1-12.
+ * @returns {number} 28-31.
+ */
+function daysInMonth(year, month) {
+  return new Date(year, month, 0).getDate();
+}
 
 /**
  * Validates a birth date typed in three fields.
@@ -63,6 +73,10 @@ function validateBirthDate(input, now = new Date(), lang = 'en') {
   const dayNumber = Number(day);
   if (!Number.isInteger(dayNumber) || dayNumber < 1 || dayNumber > 31) {
     return fail('DAY_RANGE', lang);
+  }
+  const days = daysInMonth(yearNumber, monthNumber);
+  if (dayNumber > days) {
+    return fail('DAY_IN_MONTH', lang, { days });
   }
   const birth = new Date(yearNumber, monthNumber - 1, dayNumber);
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
