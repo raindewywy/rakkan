@@ -4,16 +4,7 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const { configurePassport } = require('./config/passport');
-const env = {
-  isProduction: process.env.NODE_ENV === 'production',
-  isTest: process.env.NODE_ENV === 'test' || process.env.E2E === '1',
-  sessionSecret: process.env.SESSION_SECRET || 'dev-only-secret',
-  google: {
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/auth/google/callback'
-  }
-};
+const env = require('./config/env');
 
 /**
  * The Express application. It is exported (not started here) so that
