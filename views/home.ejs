@@ -8,6 +8,13 @@
              'Pick a category, enter your birth date and get a reading that is saved to your history.') %>
     </p>
     <div class="cta">
+      <% if (!user) { %>
+        <% if (locals.googleEnabled) { %>
+          <a class="btn btn-primary" href="/auth/google"><%= tr('เข้าสู่ระบบด้วย Google', 'Sign in with Google') %></a>
+        <% } else { %>
+          <p class="notice"><%= tr('ยังไม่ได้ตั้งค่า Google login ในไฟล์ .env', 'Google login is not configured in .env yet.') %></p>
+        <% } %>
+      <% } %>
     </div>
   </section>
 
