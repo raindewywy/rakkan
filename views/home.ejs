@@ -15,6 +15,10 @@
           <p class="notice"><%= tr('ยังไม่ได้ตั้งค่า Google login ในไฟล์ .env', 'Google login is not configured in .env yet.') %></p>
         <% } %>
       <% } %>
+      <% if (user) { %>
+        <p class="greeting"><%= tr('สวัสดี', 'Hello') %>, <strong><%= user.displayName %></strong></p>
+        <a class="btn btn-primary" href="/predict"><%= tr('เริ่มดูดวง', 'Start a reading') %></a>
+      <% } %>
     </div>
   </section>
 
