@@ -42,5 +42,16 @@ router.post('/auth/test-login', (req, res, next) => {
   return req.login(user, (err) => (err ? next(err) : res.redirect('/')));
 });
 
+router.post('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    return req.session.destroy(() => {
+      res.clearCookie('astra.sid');
+      res.redirect('/');
+    });
+  });
+});
 
 module.exports = router;
