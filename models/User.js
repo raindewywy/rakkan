@@ -33,5 +33,49 @@ class User {
   }
 }
 
+/**
+ * In-memory store of users, same pattern as the course scaffolds.
+ * @class
+ */
+class UserModel {
+  constructor() {
+    this.users = new Map();
+  }
 
-module.exports = { User };
+  /**
+   * Returns the user of a Google profile, creating it on the first login.
+   * @param {object} profile - Google profile ({id, displayName, emails, photos}).
+   * @returns {User} The existing or newly created user.
+   * @throws {TypeError} When the profile has no id.
+   */
+  findOrCreate(profile) {
+    if (!profile || !profile.id) {
+      throw new TypeError('profile with an id is required');
+    }
+    const existing = this.users.get(profile.id);
+    if (existing) {
+      return existing;
+    }
+    const email = (profile.emails && profile.emails[0] && profile.emails[0].value) || '';
+    const photo = (profile.photos && profile.photos[0] && profile.photos[0].value) || '';
+    const user = new User(profile.id, profile.displayName || email || 'Astra user', email, photo);
+    this.users.set(user.id, user);
+    return user;
+  }
+
+  /**
+   * Finds a user by id.
+   * @param {string} id - User id.
+   * @returns {User|null} The user, or null when unknown.
+   */
+  findById(id) {
+    return this.users.get(id) || null;
+  }
+
+
+}
+
+/** The single store shared by the whole app. */
+const sharedUsers = new UserModel();
+
+module.exports = { User, UserModel, sharedUsers };
