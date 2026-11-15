@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+<main id="main" class="home">
+  <section class="hero">
+    <p class="eyebrow"><%= tr('ดวงของคุณ ใต้แสงดาว', 'Your stars, gently read') %></p>
+    <h1>Astra</h1>
+    <p class="lead">
+      <%= tr('เลือกหมวดที่อยากรู้ ใส่วันเกิด แล้วรับคำทำนายที่เก็บไว้ในประวัติของคุณโดยอัตโนมัติ',
+             'Pick a category, enter your birth date and get a reading that is saved to your history.') %>
+    </p>
+    <div class="cta">
+      <% if (!user) { %>
+        <% if (locals.googleEnabled) { %>
+          <a class="btn btn-primary" href="/auth/google"><%= tr('เข้าสู่ระบบด้วย Google', 'Sign in with Google') %></a>
+        <% } else { %>
+          <p class="notice"><%= tr('ยังไม่ได้ตั้งค่า Google login ในไฟล์ .env', 'Google login is not configured in .env yet.') %></p>
+        <% } %>
+      <% } %>
+      <% if (user) { %>
+        <p class="greeting"><%= tr('สวัสดี', 'Hello') %>, <strong><%= user.displayName %></strong></p>
+        <a class="btn btn-primary" href="/predict"><%= tr('เริ่มดูดวง', 'Start a reading') %></a>
+      <% } %>
+    </div>
+  </section>
+
+</main>
+<%- include('partials/footer') %>

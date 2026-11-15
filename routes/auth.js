@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const { sharedUsers } = require('../models/User');
 
 const router = express.Router();
 
@@ -38,9 +39,25 @@ router.post('/auth/test-login', (req, res, next) => {
   }
   const name = String(req.body.name || 'Test User');
   const email = String(req.body.email || 'tester@example.com');
-  const user = { id: `test-${email}`, displayName: name, email, photo: '' };
+  const user = sharedUsers.findOrCreate({
+    id: `test-${email}`,
+    displayName: name,
+    emails: [{ value: email }],
+    photos: []
+  });
   return req.login(user, (err) => (err ? next(err) : res.redirect('/')));
 });
 
+router.post('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    return req.session.destroy(() => {
+      res.clearCookie('astra.sid');
+      res.redirect('/');
+    });
+  });
+});
 
 module.exports = router;

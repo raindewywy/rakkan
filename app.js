@@ -5,6 +5,7 @@ const session = require('express-session');
 const passport = require('passport');
 const { configurePassport } = require('./config/passport');
 const env = require('./config/env');
+const { createSessionOptions } = require('./config/session');
 
 /**
  * The Express application. It is exported (not started here) so that
@@ -14,11 +15,14 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+if (env.isProduction) {
+  app.set('trust proxy', 1);
+}
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({ secret: env.sessionSecret, resave: false, saveUninitialized: false }));
+app.use(session(createSessionOptions(env)));
 app.use(passport.initialize());
 app.use(passport.session());
 
