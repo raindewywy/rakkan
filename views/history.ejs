@@ -1,0 +1,37 @@
+<%- include('partials/header') %>
+<main id="main" class="page history">
+  <h1><%= tr('ประวัติการดูดวง', 'Reading history') %></h1>
+
+  <div class="toolbar">
+    <%# ----- search (ticket 16) ----- %>
+
+    <%# ----- filter by category (ticket 19) ----- %>
+  </div>
+
+  <div class="table-wrap">
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th scope="col"><%= tr('วันที่', 'Date') %></th>
+          <th scope="col"><%= tr('หมวด', 'Category') %></th>
+          <th scope="col"><%= tr('คำทำนาย', 'Reading') %></th>
+          <th scope="col"><%= tr('ระดับ', 'Level') %></th>
+          <th scope="col"><%= tr('ดู', 'View') %></th>
+          <%# ----- delete (ticket 20) ----- %>
+        </tr>
+      </thead>
+      <tbody>
+        <% items.forEach(function (item) { %>
+          <tr data-category="<%= item.category %>">
+            <td><%= new Date(item.createdAt).toLocaleString(lang === 'th' ? 'th-TH' : 'en-GB') %></td>
+            <td><span aria-hidden="true"><%= categoryInfo[item.category].icon %></span> <%= categoryInfo[item.category][lang] %></td>
+            <td><%= item.result.headline %></td>
+            <td><span class="badge badge-<%= item.result.level %>"><%= item.result.level %></span></td>
+            <td><a href="/result/<%= item.id %>"><%= tr('เปิด', 'Open') %></a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</main>
+<%- include('partials/footer') %>
