@@ -1,6 +1,13 @@
 <%- include('partials/header') %>
 <main id="main" class="page predict">
   <h1><%= tr('เลือกหมวดที่อยากดูดวง', 'Choose what you want to know') %></h1>
+  <% if (errors.length > 0) { %>
+    <ul class="error-list" role="alert">
+      <% errors.forEach(function (message) { %>
+        <li><%= message %></li>
+      <% }); %>
+    </ul>
+  <% } %>
   <form id="predict-form" method="post" action="/predict" data-processing-ms="<%= processingMs %>" novalidate>
     <fieldset class="categories">
       <legend class="visually-hidden"><%= tr('หมวดดูดวง', 'Category') %></legend>
@@ -12,6 +19,32 @@
         </label>
       <% }); %>
     </fieldset>
+    <fieldset class="birth-date">
+      <legend><%= tr('วันเกิดของคุณ (ค.ศ.)', 'Your birth date (CE)') %></legend>
+      <div class="date-fields">
+        <label>
+          <span><%= tr('วัน', 'Day') %></span>
+          <input name="day" inputmode="numeric" maxlength="2" placeholder="DD" autocomplete="bday-day" value="<%= values.day %>">
+        </label>
+        <label>
+          <span><%= tr('เดือน', 'Month') %></span>
+          <input name="month" inputmode="numeric" maxlength="2" placeholder="MM" autocomplete="bday-month" value="<%= values.month %>">
+        </label>
+        <label>
+          <span><%= tr('ปี', 'Year') %></span>
+          <input name="year" inputmode="numeric" maxlength="4" placeholder="YYYY" autocomplete="bday-year" value="<%= values.year %>">
+        </label>
+      </div>
+      <label class="calendar">
+        <span><%= tr('หรือเลือกจากปฏิทิน', 'Or pick from the calendar') %></span>
+        <input type="date" id="calendar" min="1900-01-01" max="<%= new Date().toISOString().slice(0, 10) %>">
+      </label>
+    </fieldset>
+    <button class="btn btn-primary" type="submit"><%= tr('ดูคำทำนาย', 'Reveal my reading') %></button>
   </form>
+  <div id="processing" class="processing" hidden aria-live="polite">
+    <span class="orb" aria-hidden="true"></span>
+    <p><%= tr('ดวงดาวกำลังเรียงตัว…', 'The stars are aligning…') %></p>
+  </div>
 </main>
 <%- include('partials/footer') %>
