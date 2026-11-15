@@ -69,11 +69,24 @@ class PredictionHistory {
   }
 
   // ----- search (ticket 16) -----
+  /**
+   * Finds readings whose category, headline, description or advice contain a keyword.
+   * The match ignores upper/lower case; an empty keyword returns every reading.
+   * @param {string} userId - Owner of the readings.
+   * @param {string} keyword - Text to look for.
+   * @returns {Array} Matching readings, newest first.
+   */
   search(userId, keyword) {
-    return this.getAll(userId).filter((entry) =>
+    const needle = String(keyword || '').trim().toLowerCase();
+    const entries = this.sortByDate(userId);
+    if (!needle) {
+      return entries;
+    }
+    return entries.filter((entry) =>
       [entry.category, entry.result.headline, entry.result.description, entry.result.advice]
         .join(' ')
-        .includes(keyword)
+        .toLowerCase()
+        .includes(needle)
     );
   }
 
