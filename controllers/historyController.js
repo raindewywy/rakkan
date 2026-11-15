@@ -12,6 +12,10 @@ function list(req, res) {
   let items = sharedHistory.sortByDate(userId);
 
   // ----- search (ticket 16) -----
+  if (q) {
+    const matches = new Set(sharedHistory.search(userId, q));
+    items = items.filter((entry) => matches.has(entry));
+  }
 
   // ----- filter by category (ticket 19) -----
 
