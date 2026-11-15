@@ -69,6 +69,13 @@ class PredictionHistory {
   }
 
   // ----- search (ticket 16) -----
+  search(userId, keyword) {
+    return this.getAll(userId).filter((entry) =>
+      [entry.category, entry.result.headline, entry.result.description, entry.result.advice]
+        .join(' ')
+        .includes(keyword)
+    );
+  }
 
   // ----- filter by category (ticket 19) -----
 
