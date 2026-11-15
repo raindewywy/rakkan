@@ -56,4 +56,36 @@ describe('GET /history', () => {
     expect(res.text).not.toContain('Sunrise of hope');
     expect(res.text.match(/<tr data-category=/g) || []).toHaveLength(0);
   });
+
+  test('redirects a guest to the home page', async () => {
+    seed('test-someone-else@example.com', 'Private reading', 4);
+
+    const res = await request(app).get('/history').expect(302).expect('Location', '/');
+
+    expect(res.text).not.toContain('Private reading');
+  });
+
+  test('never shows the readings of another user', async () => {
+    const { agent, userId } = await loginAgent(app, { email: 'me@example.com' });
+    const other = await loginAgent(app, { email: 'someone-else@example.com' });
+    seed(userId, 'My reading', 2);
+    seed(other.userId, 'Private reading', 4);
+
+    const res = await agent.get('/history').expect(200);
+
+    expect(res.text).toContain('My reading');
+    expect(res.text).not.toContain('Private reading');
+    expect(res.text.match(/<tr data-category=/g)).toHaveLength(1);
+
+    const searched = await agent.get('/history').query({ q: 'private' }).expect(200);
+
+    expect(searched.text).not.toContain('Private reading');
+    expect(searched.text.match(/<tr data-category=/g) || []).toHaveLength(0);
+
+    const otherRes = await other.agent.get('/history').expect(200);
+
+    expect(otherRes.text).toContain('Private reading');
+    expect(otherRes.text).not.toContain('My reading');
+    expect(otherRes.text.match(/<tr data-category=/g)).toHaveLength(1);
+  });
 });
