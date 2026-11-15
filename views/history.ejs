@@ -12,6 +12,17 @@
     </form>
 
     <%# ----- filter by category (ticket 19) ----- %>
+    <form class="filter" method="get" action="/history">
+      <label class="visually-hidden" for="category"><%= tr('กรองตามหมวด', 'Filter by category') %></label>
+      <select id="category" name="category">
+        <option value=""><%= tr('ทุกหมวด', 'All categories') %></option>
+        <% categories.forEach(function (key) { %>
+          <option value="<%= key %>" <%= category === key ? 'selected' : '' %>><%= categoryInfo[key][lang] %></option>
+        <% }); %>
+      </select>
+      <% if (q) { %><input type="hidden" name="q" value="<%= q %>"><% } %>
+      <button class="btn" type="submit"><%= tr('กรอง', 'Filter') %></button>
+    </form>
   </div>
 
   <% if (items.length === 0) { %>

@@ -18,6 +18,10 @@ function list(req, res) {
   }
 
   // ----- filter by category (ticket 19) -----
+  if (category) {
+    const inCategory = new Set(sharedHistory.filterByCategory(userId, category));
+    items = items.filter((entry) => inCategory.has(entry));
+  }
 
   res.render('history', {
     title: 'History',
