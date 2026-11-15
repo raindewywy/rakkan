@@ -4,13 +4,24 @@
 
   <div class="toolbar">
     <%# ----- search (ticket 16) ----- %>
+    <form class="search" method="get" action="/history" role="search">
+      <label class="visually-hidden" for="q"><%= tr('ค้นหาในประวัติ', 'Search history') %></label>
+      <input id="q" name="q" type="search" value="<%= q %>" placeholder="<%= tr('ค้นหาคำทำนาย…', 'Search readings…') %>">
+      <% if (category) { %><input type="hidden" name="category" value="<%= category %>"><% } %>
+      <button class="btn" type="submit"><%= tr('ค้นหา', 'Search') %></button>
+    </form>
 
     <%# ----- filter by category (ticket 19) ----- %>
   </div>
 
   <% if (items.length === 0) { %>
+    <% if (q) { %>
+      <p class="empty card"><%= tr('ไม่พบประวัติที่ตรงกับ “' + q + '”', 'No readings found for “' + q + '”.') %></p>
+      <a class="btn" href="/history<%= category ? '?category=' + encodeURIComponent(category) : '' %>"><%= tr('ล้างคำค้นหา', 'Clear search') %></a>
+    <% } else { %>
     <p class="empty card"><%= tr('ยังไม่มีประวัติการดูดวง ลองดูดวงครั้งแรกของคุณเลย', 'No readings yet. Make your first reading!') %></p>
     <a class="btn btn-primary" href="/predict"><%= tr('เริ่มดูดวง', 'Start a reading') %></a>
+    <% } %>
   <% } else { %>
   <div class="table-wrap" role="region" aria-label="<%= tr('ตารางประวัติการดูดวง', 'Reading history table') %>" tabindex="0">
     <table class="history-table">
