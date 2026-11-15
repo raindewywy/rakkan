@@ -8,7 +8,11 @@
     <%# ----- filter by category (ticket 19) ----- %>
   </div>
 
-  <div class="table-wrap">
+  <% if (items.length === 0) { %>
+    <p class="empty card"><%= tr('ยังไม่มีประวัติการดูดวง ลองดูดวงครั้งแรกของคุณเลย', 'No readings yet. Make your first reading!') %></p>
+    <a class="btn btn-primary" href="/predict"><%= tr('เริ่มดูดวง', 'Start a reading') %></a>
+  <% } else { %>
+  <div class="table-wrap" role="region" aria-label="<%= tr('ตารางประวัติการดูดวง', 'Reading history table') %>" tabindex="0">
     <table class="history-table">
       <thead>
         <tr>
@@ -33,5 +37,6 @@
       </tbody>
     </table>
   </div>
+  <% } %>
 </main>
 <%- include('partials/footer') %>
