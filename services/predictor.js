@@ -1,6 +1,7 @@
 const { CATEGORIES, CATEGORY_INFO } = require('../models/Prediction');
 const { getZodiac } = require('./zodiac');
 const { LEVEL_ADVICE, hashText, buildDetails } = require('./readingData');
+const { getLocalReading } = require('./localReadings');
 
 const LEVELS = ['high', 'medium', 'low'];
 
@@ -48,8 +49,19 @@ function createPredictor({ client, onFallback = () => {} }) {
      */
     async predictAll(birthDate, lang = 'en') {
       const sign = getZodiac(birthDate);
-      const text = await client.getDailyHoroscope(sign);
-      return { sign, source: 'api', results: mapApiTextToCategories(sign, text, lang) };
+      if (client.isConfigured()) {
+        try {
+          const text = await client.getDailyHoroscope(sign);
+          return { sign, source: 'api', results: mapApiTextToCategories(sign, text, lang) };
+        } catch (err) {
+          onFallback(sign, err);
+        }
+      }
+      const results = {};
+      CATEGORIES.forEach((category) => {
+        results[category] = getLocalReading(category, birthDate, lang);
+      });
+      return { sign, source: 'local', results };
     }
   };
 }
