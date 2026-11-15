@@ -72,6 +72,15 @@ class UserModel {
     return this.users.get(id) || null;
   }
 
+  /**
+   * Counts how many readings a user has made.
+   * @param {string} userId - User id.
+   * @param {{getAll: function(string): Array}} history - A PredictionHistory.
+   * @returns {number} Total readings (0 when none).
+   */
+  getTotalReadings(userId, history) {
+    return history.getAll(userId).length;
+  }
 
 }
 
