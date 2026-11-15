@@ -82,6 +82,16 @@ class UserModel {
     return history.getAll(userId).length;
   }
 
+  /**
+   * Finds the date of the user's oldest reading.
+   * @param {string} userId - User id.
+   * @param {{getAll: function(string): Array}} history - A PredictionHistory.
+   * @returns {Date|null} The earliest createdAt, or null when there are no readings.
+   */
+  getFirstReadingDate(userId, history) {
+    const times = history.getAll(userId).map((entry) => entry.createdAt.getTime());
+    return times.length === 0 ? null : new Date(Math.min(...times));
+  }
 }
 
 /** The single store shared by the whole app. */
