@@ -1,0 +1,63 @@
+# Deploys Astra to AWS Elastic Beanstalk (based on aws2.yml of the instructor's texpense repo).
+# It is started by hand (Actions > Deploy to AWS > Run workflow) and only deploys when the unit tests pass.
+# Needs these secrets in the "aws-secret" environment:
+#   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, S3_BUCKET, EB_APP_NAME, EB_ENV_NAME
+# Set GOOGLE_*, SESSION_SECRET, NODE_ENV=production and COOKIE_SECURE in the Elastic Beanstalk
+# environment settings, never in this repository.
+name: Deploy to AWS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+
+      - run: npm ci
+
+      - run: npm run test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: aws-secret
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Zip application
+        run: |
+          zip -r app.zip . -x "*.git*" "node_modules/*" "test/*" "tests/*" "docs/*" "coverage/*" "test-results/*" "playwright-report/*" ".env*"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1   # change if needed
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp app.zip s3://${{ secrets.S3_BUCKET }}/app-${{ github.sha }}.zip
+
+      - name: Create new application version
+        run: |
+          aws elasticbeanstalk create-application-version \
+            --application-name "${{ secrets.EB_APP_NAME }}" \
+            --version-label "${{ github.sha }}" \
+            --source-bundle S3Bucket="${{ secrets.S3_BUCKET }}",S3Key="app-${{ github.sha }}.zip"
+
+      - name: Deploy to Elastic Beanstalk environment
+        run: |
+          aws elasticbeanstalk update-environment \
+            --environment-name "${{ secrets.EB_ENV_NAME }}" \
+            --version-label "${{ github.sha }}"

@@ -1,22 +1,36 @@
 {
   "name": "astra",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node server.js",
     "test": "jest"
   },
   "jest": {
-   "collectCoverage": true,
-   "coverageReporters": ["html", "text", "text-summary", "cobertura"],
-   "reporters": [
-   "default",
-   ["jest-junit", { "outputDirectory": "test-results/jest" }]
- ]
- },
+    "collectCoverage": true,
+    "coverageReporters": [
+      "html",
+      "text",
+      "text-summary",
+      "cobertura"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test-results/jest"
+        }
+      ]
+    ]
+  },
   "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "ejs": "^3.1.9"
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
   },
   "devDependencies": {
     "jest": "^29.0.0",
