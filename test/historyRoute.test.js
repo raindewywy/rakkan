@@ -26,4 +26,34 @@ describe('GET /history', () => {
 
     expect(res.text).toContain('ประวัติการดูดวง');
   });
+
+  test('?q= keeps only the readings that match the keyword', async () => {
+    const { agent, userId } = await loginAgent(app);
+    seed(userId, 'Sunrise of hope', 2);
+    seed(userId, 'Save more money', 3, 'finance');
+
+    const res = await agent.get('/history').query({ q: '  sUnRiSe  ' }).expect(200);
+
+    expect(res.text).toContain('Sunrise of hope');
+    expect(res.text).not.toContain('Save more money');
+    expect(res.text.match(/<tr data-category=/g)).toHaveLength(1);
+
+    const unfiltered = await agent.get('/history').query({ q: '   ' }).expect(200);
+
+    expect(unfiltered.text.match(/<tr data-category=/g)).toHaveLength(2);
+  });
+
+  test('?q= with no match shows the no-results state and a reset link', async () => {
+    const { agent, userId } = await loginAgent(app);
+    seed(userId, 'Sunrise of hope', 2);
+
+    const res = await agent.get('/history').query({ q: 'zodiac', category: 'love' }).expect(200);
+
+    expect(res.text).toContain('class="empty');
+    expect(res.text).toContain('ไม่พบประวัติที่ตรงกับ “zodiac”');
+    expect(res.text).toContain('href="/history?category=love"');
+    expect(res.text).not.toContain('ยังไม่มีประวัติการดูดวง');
+    expect(res.text).not.toContain('Sunrise of hope');
+    expect(res.text.match(/<tr data-category=/g) || []).toHaveLength(0);
+  });
 });
