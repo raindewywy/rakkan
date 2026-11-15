@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+<main id="main" class="page predict">
+  <h1><%= tr('เลือกหมวดที่อยากดูดวง', 'Choose what you want to know') %></h1>
+  <form id="predict-form" method="post" action="/predict" data-processing-ms="<%= processingMs %>" novalidate>
+    <fieldset class="categories">
+      <legend class="visually-hidden"><%= tr('หมวดดูดวง', 'Category') %></legend>
+      <% categories.forEach(function (key) { %>
+        <label class="category-card">
+          <input type="radio" name="category" value="<%= key %>" <%= values.category === key ? 'checked' : '' %>>
+          <span class="icon" aria-hidden="true"><%= categoryInfo[key].icon %></span>
+          <span class="label"><%= categoryInfo[key][lang] %></span>
+        </label>
+      <% }); %>
+    </fieldset>
+  </form>
+</main>
+<%- include('partials/footer') %>
