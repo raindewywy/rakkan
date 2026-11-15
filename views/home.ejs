@@ -22,5 +22,15 @@
     </div>
   </section>
 
+  <% if (locals.stats) { %>
+    <section class="stats card" aria-label="<%= tr('สถิติของคุณ', 'Your statistics') %>">
+      <h2><%= tr('สถิติของคุณ', 'Your statistics') %></h2>
+      <p><%= tr('จำนวนครั้งที่ดูดวง', 'Total readings') %>: <strong><%= stats.total %></strong></p>
+      <p>
+        <%= tr('ดูดวงครั้งแรกเมื่อ', 'First reading on') %>:
+        <strong><%= stats.firstDate ? stats.firstDate.toLocaleDateString(lang === 'th' ? 'th-TH' : 'en-GB') : '-' %></strong>
+      </p>
+    </section>
+  <% } %>
 </main>
 <%- include('partials/footer') %>
