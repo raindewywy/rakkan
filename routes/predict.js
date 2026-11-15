@@ -5,5 +5,6 @@ const predictController = require('../controllers/predictController');
 const router = express.Router();
 
 router.get('/predict', requireLogin, predictController.showForm);
+router.post('/predict', requireLogin, predictController.submit);
 
 module.exports = router;

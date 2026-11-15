@@ -1,5 +1,6 @@
 const env = require('../config/env');
 const { Prediction, CATEGORIES, CATEGORY_INFO } = require('../models/Prediction');
+const { validateBirthDate } = require('../services/birthDateValidator');
 
 
 /**
@@ -31,6 +32,34 @@ function showForm(req, res) {
   res.render('predict', formModel());
 }
 
+/**
+ * POST /predict - validates the form, then makes the reading.
+ */
+async function submit(req, res, next) {
+  try {
+    const values = {
+      category: String(req.body.category || ''),
+      day: String(req.body.day || ''),
+      month: String(req.body.month || ''),
+      year: String(req.body.year || '')
+    };
+    const errors = [];
+    if (!Prediction.isValidCategory(values.category)) {
+      errors.push(res.locals.tr('กรุณาเลือกหมวดที่ต้องการดูดวง', 'Please choose a category.'));
+    }
+    const check = validateBirthDate(values, new Date(), res.locals.lang);
+    if (!check.valid) {
+      errors.push(check.message);
+    }
+    if (errors.length > 0) {
+      return res.status(400).render('predict', formModel({ errors, values }));
+    }
+
+    return res.send(`Category ${values.category}, birth date ${check.date}`);
+  } catch (err) {
+    return next(err);
+  }
+}
 
 
-module.exports = { showForm };
+module.exports = { showForm, submit };
