@@ -88,4 +88,26 @@ describe('GET /history', () => {
     expect(otherRes.text).not.toContain('My reading');
     expect(otherRes.text.match(/<tr data-category=/g)).toHaveLength(1);
   });
+
+  test('lists the readings newest first with one table row each', async () => {
+    const { agent, userId } = await loginAgent(app);
+    seed(userId, 'Oldest reading', 1);
+    seed(userId, 'Newest reading', 9);
+    seed(userId, 'Middle reading', 5);
+
+    const res = await agent.get('/history').expect(200);
+
+    const tbody = res.text.match(/<tbody>([\s\S]*?)<\/tbody>/);
+    expect(tbody).not.toBeNull();
+    expect(tbody[1].match(/<tr\b/g)).toHaveLength(3);
+
+    const newest = tbody[1].indexOf('Newest reading');
+    const middle = tbody[1].indexOf('Middle reading');
+    const oldest = tbody[1].indexOf('Oldest reading');
+    expect(newest).toBeGreaterThanOrEqual(0);
+    expect(middle).toBeGreaterThanOrEqual(0);
+    expect(oldest).toBeGreaterThanOrEqual(0);
+    expect(newest).toBeLessThan(middle);
+    expect(middle).toBeLessThan(oldest);
+  });
 });
