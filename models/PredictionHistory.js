@@ -69,8 +69,42 @@ class PredictionHistory {
   }
 
   // ----- search (ticket 16) -----
+  /**
+   * Finds readings whose category, headline, description or advice contain a keyword.
+   * The match ignores upper/lower case; an empty keyword returns every reading.
+   * @param {string} userId - Owner of the readings.
+   * @param {string} keyword - Text to look for.
+   * @returns {Array} Matching readings, newest first.
+   */
+  search(userId, keyword) {
+    const needle = String(keyword || '').trim().toLowerCase();
+    const entries = this.sortByDate(userId);
+    if (!needle) {
+      return entries;
+    }
+    return entries.filter((entry) =>
+      [entry.category, entry.result.headline, entry.result.description, entry.result.advice]
+        .join(' ')
+        .toLowerCase()
+        .includes(needle)
+    );
+  }
 
   // ----- filter by category (ticket 19) -----
+  /**
+   * Returns the readings of one category.
+   * An unknown, empty or non-text category matches nothing (it never throws).
+   * @param {string} userId - Owner of the readings.
+   * @param {string} category - Category key such as 'love' (case does not matter).
+   * @returns {Array} Matching readings in the order they were added.
+   */
+  filterByCategory(userId, category) {
+    if (typeof category !== 'string' || !category.trim()) {
+      return [];
+    }
+    const wanted = category.trim().toLowerCase();
+    return this.getAll(userId).filter((entry) => entry.category === wanted);
+  }
 
   // ----- remove (ticket 20) -----
   /**

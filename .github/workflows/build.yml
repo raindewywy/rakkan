@@ -1,0 +1,77 @@
+name: NodeJS with jest test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # The two jobs below run in parallel.
+  unit-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install
+      run: npm ci
+
+    - name: Unit tests (Jest)
+      run: npm run test
+
+    - name: Upload JUnit report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: jest-junit
+        path: test-results/jest
+        if-no-files-found: ignore
+
+    - name: Upload coverage
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage
+        path: coverage
+        if-no-files-found: ignore
+
+  ui-test:
+    runs-on: ubuntu-latest
+    # Runs once the Playwright tests exist in the repository.
+    if: ${{ hashFiles('playwright.config.js') != '' }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js 24.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 24.x
+
+    - name: Install
+      run: npm ci
+
+    - name: Install Playwright browser
+      run: npx playwright install --with-deps chromium
+
+    - name: UI tests (Playwright)
+      run: npx playwright test
+
+    - name: Upload Playwright report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-report
+        path: |
+          playwright-report
+          test-results/playwright
+        if-no-files-found: ignore
