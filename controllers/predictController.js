@@ -1,8 +1,10 @@
+const crypto = require('crypto');
 const env = require('../config/env');
 const { Prediction, CATEGORIES, CATEGORY_INFO } = require('../models/Prediction');
 const { validateBirthDate } = require('../services/birthDateValidator');
 const { createPredictor } = require('../services/predictor');
 const { createHoroscopeClient } = require('../services/horoscopeClient');
+const { sharedHistory } = require('../models/PredictionHistory');
 
 const predictor = createPredictor({
   client: createHoroscopeClient({ baseUrl: env.horoscopeApiUrl }),
@@ -62,20 +64,39 @@ async function submit(req, res, next) {
     }
 
     const predicted = await predictor.predictAll(check.date, res.locals.lang);
-    return res.render('result', {
-      title: 'Result',
-      styles: ['/css/predict.css'],
-      categoryInfo: CATEGORY_INFO,
-      visible: [values.category],
-      results: predicted.results,
-      sign: predicted.sign,
-      source: predicted.source,
-      birthDate: check.date
-    });
+    const prediction = new Prediction(
+      crypto.randomUUID(),
+      req.user.id,
+      values.category,
+      check.date,
+      Object.assign({}, predicted.results[values.category], { sign: predicted.sign, source: predicted.source })
+    );
+    sharedHistory.add(prediction);
+    return res.redirect(303, `/result/${prediction.id}`);
   } catch (err) {
     return next(err);
   }
 }
 
+/**
+ * GET /result/:id - shows one saved reading of the logged in user (only the chosen category).
+ */
+function showResult(req, res) {
+  const prediction = sharedHistory.getById(req.user.id, req.params.id);
+  if (!prediction) {
+    return res.status(404).send('Reading not found');
+  }
+  return res.render('result', {
+    title: 'Result',
+    styles: ['/css/predict.css'],
+    categoryInfo: CATEGORY_INFO,
+    visible: [prediction.category],
+    results: { [prediction.category]: prediction.result },
+    sign: prediction.result.sign,
+    source: prediction.result.source,
+    birthDate: prediction.birthDate,
+    lucky: prediction.luckyScore ? prediction.luckyScore() : null
+  });
+}
 
-module.exports = { showForm, submit };
+module.exports = { showForm, submit, showResult };
