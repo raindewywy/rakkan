@@ -589,7 +589,7 @@ graph TB
 
 * Requirement: สัมภาษณ์รุ่นพี่ในสาขาเมื่อ 9/9/2569 ([วิดีโอ](https://youtu.be/lopJD8CxQZ0)) แปลงเป็น FR/NFR และ User Story บน GitHub Issues แล้วปรับตาม Change Request \#36  
 * UI: Figma 5 หน้าจอ (หน้าแรก → เลือกหมวด → กรอกวันเกิด \+ error → ปฏิทิน \+ กำลังประมวลผล → ผลลัพธ์) พร้อม Use Case และ Architecture Diagram  
-* ข้อมูล: ไม่มีฐานข้อมูลจริง ออกแบบเป็น 3 คลาส User, Prediction, PredictionHistory เก็บในหน่วยความจำตาม scaffold ของวิชา (ดูส่วนที่ 4\)
+* ข้อมูล: ไม่มีฐานข้อมูลจริง ออกแบบเป็น 3 คลาส User, Prediction, PredictionHistory เก็บในหน่วยความจำตาม scaffold ของวิชา
 
 **Dev**
 
