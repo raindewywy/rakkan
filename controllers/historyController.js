@@ -35,5 +35,14 @@ function list(req, res) {
 }
 
 // ----- remove (ticket 20) -----
+/**
+ * POST /history/:id/delete - deletes one of the user's own readings.
+ */
+function remove(req, res) {
+  if (!sharedHistory.remove(req.user.id, req.params.id)) {
+    return res.status(404).send('Reading not found');
+  }
+  return res.redirect(303, '/history');
+}
 
-module.exports = { list };
+module.exports = { list, remove };

@@ -44,6 +44,7 @@
           <th scope="col"><%= tr('ระดับ', 'Level') %></th>
           <th scope="col"><%= tr('ดู', 'View') %></th>
           <%# ----- delete (ticket 20) ----- %>
+          <th scope="col"><%= tr('ลบ', 'Delete') %></th>
         </tr>
       </thead>
       <tbody>
@@ -54,6 +55,11 @@
             <td><%= item.result.headline %></td>
             <td><span class="badge badge-<%= item.result.level %>"><%= item.result.level %></span></td>
             <td><a href="/result/<%= item.id %>"><%= tr('เปิด', 'Open') %></a></td>
+            <td>
+              <form method="post" action="/history/<%= item.id %>/delete">
+                <button class="btn btn-danger btn-small" type="submit" aria-label="<%= tr('ลบคำทำนายนี้', 'Delete this reading') %>"><%= tr('ลบ', 'Delete') %></button>
+              </form>
+            </td>
           </tr>
         <% }); %>
       </tbody>
