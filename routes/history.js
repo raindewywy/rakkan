@@ -7,5 +7,6 @@ const router = express.Router();
 router.get('/history', requireLogin, historyController.list);
 
 // ----- delete (ticket 20) -----
+router.post('/history/:id/delete', requireLogin, historyController.remove);
 
 module.exports = router;
