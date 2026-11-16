@@ -73,11 +73,12 @@ function toMarkdown(phase, rows, totals, context) {
   const lines = [
     `# Static profiling${phase ? ` - ${phase}` : ''}`,
     '',
-    `Generated: ${context.generatedAt}  `,
-    `Source commit: ${context.sourceCommit || 'unavailable'}  `,
-    `Node: ${process.version}`,
+    `- Generated: ${context.generatedAt}`,
+    `- Source commit: ${context.sourceCommit || 'unavailable'}`,
+    `- Node: ${process.version}`,
+    '- Function counts and complexity are regex estimates, not AST measurements.',
     '',
-    '| File | LOC | Functions | Complexity (approx.) |',
+    '| File | LOC | Functions (approx.) | Complexity (approx.) |',
     '| --- | ---: | ---: | ---: |'
   ];
   rows.forEach((row) => lines.push(`| ${row.file} | ${row.loc} | ${row.functions} | ${row.complexity} |`));
