@@ -66,7 +66,7 @@ async function submit(req, res, next) {
       title: 'Result',
       styles: ['/css/predict.css'],
       categoryInfo: CATEGORY_INFO,
-      visible: CATEGORIES,
+      visible: [values.category],
       results: predicted.results,
       sign: predicted.sign,
       source: predicted.source,
