@@ -612,3 +612,4 @@ graph TB
 | auth | กันคนไม่ login, 503 เมื่อไม่ตั้งค่า Google, login จำลอง, logout |
 | historySort | เรียงใหม่→เก่า และเก่า→ใหม่ |
 | user, userModel | สร้างผู้ใช้, ค้นหา |
+| userStat | จำนวนการใช้งานเฉพาะผู้ใช้ |
