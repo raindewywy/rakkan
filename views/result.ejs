@@ -1,0 +1,38 @@
+<%- include('partials/header') %>
+<main id="main" class="page result">
+  <p class="muted"><%= sign %> · <%= birthDate %></p>
+  <% visible.forEach(function (key) {
+       var reading = results[key];
+       var info = categoryInfo[key];
+       var levelLabel = { high: tr('สูง', 'High'), medium: tr('ปานกลาง', 'Medium'), low: tr('ต่ำ', 'Low') }[reading.level];
+  %>
+    <article class="result-card" data-category="<%= key %>">
+      <header>
+        <span class="badge badge-<%= reading.level %>"><%= levelLabel %></span>
+        <h1><span class="icon" aria-hidden="true"><%= info.icon %></span> <%= info[lang] %></h1>
+      </header>
+      <h2 class="headline"><%= reading.headline %></h2>
+      <p class="description"><%= reading.description %></p>
+      <div class="detail-grid">
+        <% reading.details.forEach(function (detail) { %>
+          <section class="card detail">
+            <h3><%= detail.title %></h3>
+            <p><%= detail.text %></p>
+          </section>
+        <% }); %>
+      </div>
+      <aside class="card advice">
+        <h3><%= tr('คำแนะนำ', 'Advice') %></h3>
+        <p><%= reading.advice %></p>
+      </aside>
+    </article>
+  <% }); %>
+  <p class="muted source-note">
+    <%= source === 'api' ? tr('ข้อมูลจาก API ภายนอก', 'Reading from the external API') : tr('คำทำนายจากคลังของ Astra', 'Reading from the Astra library') %>
+  </p>
+  <div class="actions">
+    <a class="btn btn-primary" href="/predict"><%= tr('ดูดวงอีกครั้ง', 'Predict again') %></a>
+    <a class="btn" href="/history"><%= tr('ดูประวัติ', 'View history') %></a>
+  </div>
+</main>
+<%- include('partials/footer') %>

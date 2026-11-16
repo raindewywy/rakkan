@@ -1,7 +1,15 @@
+const crypto = require('crypto');
 const env = require('../config/env');
 const { Prediction, CATEGORIES, CATEGORY_INFO } = require('../models/Prediction');
 const { validateBirthDate } = require('../services/birthDateValidator');
+const { createPredictor } = require('../services/predictor');
+const { createHoroscopeClient } = require('../services/horoscopeClient');
+const { sharedHistory } = require('../models/PredictionHistory');
 
+const predictor = createPredictor({
+  client: createHoroscopeClient({ baseUrl: env.horoscopeApiUrl }),
+  onFallback: (sign, err) => console.warn(`Horoscope API failed for ${sign}, using local readings: ${err.message}`)
+});
 
 /**
  * Data every render of the predict form needs.
@@ -55,11 +63,40 @@ async function submit(req, res, next) {
       return res.status(400).render('predict', formModel({ errors, values }));
     }
 
-    return res.send(`Category ${values.category}, birth date ${check.date}`);
+    const predicted = await predictor.predictAll(check.date, res.locals.lang);
+    const prediction = new Prediction(
+      crypto.randomUUID(),
+      req.user.id,
+      values.category,
+      check.date,
+      Object.assign({}, predicted.results[values.category], { sign: predicted.sign, source: predicted.source })
+    );
+    sharedHistory.add(prediction);
+    return res.redirect(303, `/result/${prediction.id}`);
   } catch (err) {
     return next(err);
   }
 }
 
+/**
+ * GET /result/:id - shows one saved reading of the logged in user (only the chosen category).
+ */
+function showResult(req, res) {
+  const prediction = sharedHistory.getById(req.user.id, req.params.id);
+  if (!prediction) {
+    return res.status(404).send('Reading not found');
+  }
+  return res.render('result', {
+    title: 'Result',
+    styles: ['/css/predict.css'],
+    categoryInfo: CATEGORY_INFO,
+    visible: [prediction.category],
+    results: { [prediction.category]: prediction.result },
+    sign: prediction.result.sign,
+    source: prediction.result.source,
+    birthDate: prediction.birthDate,
+    lucky: prediction.luckyScore ? prediction.luckyScore() : null
+  });
+}
 
-module.exports = { showForm, submit };
+module.exports = { showForm, submit, showResult };
