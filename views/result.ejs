@@ -25,6 +25,9 @@
         <h3><%= tr('คำแนะนำ', 'Advice') %></h3>
         <p><%= reading.advice %></p>
       </aside>
+      <% if (locals.lucky) { %>
+        <p class="lucky"><%= tr('คะแนนโชค', 'Lucky score') %>: <strong><%= lucky %></strong> / 100</p>
+      <% } %>
     </article>
   <% }); %>
   <p class="muted source-note">

@@ -1,3 +1,10 @@
+/** Raised when the horoscope API does not answer in time. */
+class HoroscopeTimeoutError extends Error {
+  constructor(timeoutMs) {
+    super(`Horoscope API did not answer within ${timeoutMs} ms`);
+    this.name = 'HoroscopeTimeoutError';
+  }
+}
 
 /**
  * Pulls the horoscope text out of the different shapes free APIs use.
@@ -42,7 +49,19 @@ function createHoroscopeClient({ baseUrl = '', fetchImpl = globalThis.fetch, tim
       }
       const name = sign.charAt(0).toUpperCase() + sign.slice(1);
       const url = baseUrl.replace('{sign}', encodeURIComponent(name));
-      const response = await fetchImpl(url);
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      let response;
+      try {
+        response = await fetchImpl(url, { signal: controller.signal });
+      } catch (err) {
+        if (err && err.name === 'AbortError') {
+          throw new HoroscopeTimeoutError(timeoutMs);
+        }
+        throw err;
+      } finally {
+        clearTimeout(timer);
+      }
       if (!response.ok) {
         throw new Error(`Horoscope API responded with ${response.status}`);
       }
@@ -55,4 +74,4 @@ function createHoroscopeClient({ baseUrl = '', fetchImpl = globalThis.fetch, tim
   };
 }
 
-module.exports = { createHoroscopeClient };
+module.exports = { createHoroscopeClient, HoroscopeTimeoutError };

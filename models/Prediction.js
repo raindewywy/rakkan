@@ -70,6 +70,20 @@ class Prediction {
     };
   }
 
+  /**
+   * Lucky score: the average of the scores of the detail cards.
+   * @returns {number} Average score rounded to 1 decimal, or 0 when there are no scores.
+   */
+  luckyScore() {
+    const scores = ((this.result && this.result.details) || [])
+      .map((detail) => detail.score)
+      .filter((score) => typeof score === 'number');
+    if (scores.length === 0) {
+      return 0;
+    }
+    const sum = scores.reduce((total, score) => total + score, 0);
+    return Math.round((sum / scores.length) * 10) / 10;
+  }
 }
 
 module.exports = { Prediction, CATEGORIES, CATEGORY_INFO };
