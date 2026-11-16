@@ -1,0 +1,157 @@
+{
+  "phase": "phase3",
+  "generatedAt": "2026-11-16T13:44:26.667Z",
+  "sourceCommit": "aa827608d620e14635227669b9dea82beef55053",
+  "node": "v24.21.0",
+  "files": [
+    {
+      "file": "app.js",
+      "loc": 33,
+      "functions": 4,
+      "complexity": 6
+    },
+    {
+      "file": "server.js",
+      "loc": 5,
+      "functions": 1,
+      "complexity": 2
+    },
+    {
+      "file": "config/env.js",
+      "loc": 19,
+      "functions": 0,
+      "complexity": 8
+    },
+    {
+      "file": "config/passport.js",
+      "loc": 17,
+      "functions": 4,
+      "complexity": 4
+    },
+    {
+      "file": "config/session.js",
+      "loc": 15,
+      "functions": 1,
+      "complexity": 1
+    },
+    {
+      "file": "controllers/historyController.js",
+      "loc": 32,
+      "functions": 4,
+      "complexity": 6
+    },
+    {
+      "file": "controllers/homeController.js",
+      "loc": 13,
+      "functions": 1,
+      "complexity": 2
+    },
+    {
+      "file": "controllers/predictController.js",
+      "loc": 80,
+      "functions": 5,
+      "complexity": 13
+    },
+    {
+      "file": "middleware/requireLogin.js",
+      "loc": 7,
+      "functions": 2,
+      "complexity": 3
+    },
+    {
+      "file": "models/Prediction.js",
+      "loc": 35,
+      "functions": 2,
+      "complexity": 2
+    },
+    {
+      "file": "models/PredictionHistory.js",
+      "loc": 63,
+      "functions": 14,
+      "complexity": 14
+    },
+    {
+      "file": "models/User.js",
+      "loc": 49,
+      "functions": 7,
+      "complexity": 14
+    },
+    {
+      "file": "routes/auth.js",
+      "loc": 49,
+      "functions": 7,
+      "complexity": 7
+    },
+    {
+      "file": "routes/history.js",
+      "loc": 7,
+      "functions": 0,
+      "complexity": 1
+    },
+    {
+      "file": "routes/home.js",
+      "loc": 5,
+      "functions": 0,
+      "complexity": 1
+    },
+    {
+      "file": "routes/lang.js",
+      "loc": 19,
+      "functions": 1,
+      "complexity": 5
+    },
+    {
+      "file": "routes/predict.js",
+      "loc": 8,
+      "functions": 0,
+      "complexity": 1
+    },
+    {
+      "file": "services/birthDateValidator.js",
+      "loc": 65,
+      "functions": 5,
+      "complexity": 26
+    },
+    {
+      "file": "services/horoscopeClient.js",
+      "loc": 34,
+      "functions": 5,
+      "complexity": 11
+    },
+    {
+      "file": "services/localReadings.js",
+      "loc": 106,
+      "functions": 1,
+      "complexity": 6
+    },
+    {
+      "file": "services/predictor.js",
+      "loc": 44,
+      "functions": 6,
+      "complexity": 6
+    },
+    {
+      "file": "services/readingData.js",
+      "loc": 47,
+      "functions": 3,
+      "complexity": 6
+    },
+    {
+      "file": "services/zodiac.js",
+      "loc": 25,
+      "functions": 2,
+      "complexity": 5
+    },
+    {
+      "file": "public/js/birthdate.js",
+      "loc": 32,
+      "functions": 5,
+      "complexity": 8
+    }
+  ],
+  "totals": {
+    "loc": 809,
+    "functions": 80,
+    "complexity": 158
+  }
+}

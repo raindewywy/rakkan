@@ -4,7 +4,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "jest"
+    "test": "jest",
+    "profile:static": "node scripts/profile-static.js",
+    "profile:dynamic": "node scripts/profile-dynamic.js"
   },
   "jest": {
     "collectCoverage": true,
