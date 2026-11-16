@@ -599,3 +599,16 @@ graph TB
 | Branch | ตั้งชื่อตาม ticket เช่น sureeratnsh\_T09 · commit ขึ้นต้นด้วยเลข ticket เช่น \[9\]: add birth date form |
 | Code Review | เปิด PR ให้เพื่อนรีวิว แจ้งใน IG เมื่อมี PR รอรีวิว |
 | Merge | merge เข้า main แล้ว 17 PR · 90 commit (ไม่นับ merge) · 14 branch |
+
+**Test**
+
+| ชุดทดสอบ | Test cases | 
+| :---- | :---- |
+| birthDateValidator | วันว่าง/ไม่ครบ, เดือน/วัน/ปีเกินช่วง, 31 เม.ย., 29 ก.พ. (2000 ผ่าน / 1900, 2001 ไม่ผ่าน), วันในอนาคต, ข้อความภาษาไทย |
+| prediction | สร้างคำทำนาย, หมวดถูก/ผิด, toJSON |
+| historyFilter | กรองตามหมวด, หมวดแปลกไม่ error |
+| predictionHistory | เพิ่ม/ดึงข้อมูล, แยกข้อมูลต่อผู้ใช้ |
+| historySearch | ค้นหา, ไม่สนตัวพิมพ์เล็ก/ใหญ่ |
+| auth | กันคนไม่ login, 503 เมื่อไม่ตั้งค่า Google, login จำลอง, logout |
+| historySort | เรียงใหม่→เก่า และเก่า→ใหม่ |
+| user, userModel | สร้างผู้ใช้, ค้นหา |
