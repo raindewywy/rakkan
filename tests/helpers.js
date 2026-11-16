@@ -11,5 +11,19 @@ async function login(page, name = 'Playwright User') {
   return email;
 }
 
+/**
+ * Fills the predict form and waits for the result page.
+ * @param {import('@playwright/test').Page} page - The Playwright page.
+ * @param {string} category - love, career, finance, education or life.
+ */
+async function makeReading(page, category) {
+  await page.goto('/predict');
+  await page.locator('label.category-card', { has: page.locator(`input[value="${category}"]`) }).click();
+  await page.fill('input[name="day"]', '17');
+  await page.fill('input[name="month"]', '5');
+  await page.fill('input[name="year"]', '1999');
+  await page.click('#predict-form button[type="submit"]');
+  await page.waitForURL(/\/result\//);
+}
 
-module.exports = { login };
+module.exports = { login, makeReading };
