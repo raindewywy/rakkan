@@ -7,7 +7,8 @@
     "test": "jest",
     "profile:static": "node scripts/profile-static.js",
     "profile:dynamic": "node scripts/profile-dynamic.js",
-    "test:ui": "playwright test"
+    "test:ui": "playwright test",
+    "test:table": "node scripts/test-cases-table.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
