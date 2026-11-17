@@ -7,4 +7,9 @@ module.exports = {
   collectCoverage: true,
   coverageReporters: ['html', 'text', 'text-summary', 'cobertura'],
   reporters: ['default', ['jest-junit', { outputDirectory: 'test-results/jest' }]],
+  // The course requires at least 80% statement coverage of the data-structure classes in models/.
+  collectCoverageFrom: ['models/**/*.js'],
+  coverageThreshold: {
+    './models/': { statements: 80 }
+  }
 };
