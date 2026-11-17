@@ -44,5 +44,21 @@ fs.readdirSync(routesDir)
   .sort()
   .forEach((file) => app.use(require(path.join(routesDir, file))));
 
+// Unknown URLs and unexpected errors get a friendly page instead of a raw stack trace.
+app.use((req, res) => {
+  const tr = res.locals.tr || ((th, en) => en);
+  res.status(404).render('error', { title: 'Not found', code: 404, message: tr('ไม่พบหน้าที่ต้องการ', 'Page not found') });
+});
+
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  console.error(err);
+  const tr = res.locals.tr || ((th, en) => en);
+  res.status(500).render('error', {
+    title: 'Error',
+    code: 500,
+    message: tr('เกิดข้อผิดพลาดบนเซิร์ฟเวอร์', 'Something went wrong on the server')
+  });
+});
 
 module.exports = app;

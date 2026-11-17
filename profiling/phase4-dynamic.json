@@ -1,0 +1,75 @@
+{
+  "phase": "phase4",
+  "generatedAt": "2026-11-17T09:13:40.948Z",
+  "sourceCommit": "32f4a322a3b1d294b0c84bfee2f97621a667e9b6",
+  "node": "v24.13.1",
+  "cpu": "13th Gen Intel(R) Core(TM) i7-13620H",
+  "platform": "win32",
+  "apiMode": "local",
+  "language": "th",
+  "initialReadings": 1,
+  "finalReadings": 52,
+  "runs": 50,
+  "routes": [
+    {
+      "name": "GET /",
+      "status": 200,
+      "available": true,
+      "runs": 50,
+      "avg": 3.67,
+      "min": 3.14,
+      "max": 4.54,
+      "p95": 4.37,
+      "heapKB": 6071
+    },
+    {
+      "name": "GET /predict",
+      "status": 200,
+      "available": true,
+      "runs": 50,
+      "avg": 5.16,
+      "min": 3.08,
+      "max": 16.83,
+      "p95": 9.28,
+      "heapKB": 748
+    },
+    {
+      "name": "POST /predict",
+      "status": 303,
+      "available": true,
+      "runs": 50,
+      "avg": 1.71,
+      "min": 1.44,
+      "max": 2.32,
+      "p95": 1.99,
+      "heapKB": 859
+    },
+    {
+      "name": "GET /result/:id",
+      "status": 200,
+      "available": true,
+      "runs": 50,
+      "avg": 4.05,
+      "min": 3.13,
+      "max": 12.24,
+      "p95": 5.59,
+      "heapKB": 167
+    },
+    {
+      "name": "GET /history",
+      "status": 200,
+      "available": true,
+      "runs": 50,
+      "avg": 5.7,
+      "min": 3.53,
+      "max": 17.24,
+      "p95": 11.44,
+      "heapKB": 1800
+    },
+    {
+      "name": "GET /stats",
+      "status": 404,
+      "available": false
+    }
+  ]
+}
