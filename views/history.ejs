@@ -50,11 +50,11 @@
       <tbody>
         <% items.forEach(function (item) { %>
           <tr data-category="<%= item.category %>">
-            <td><%= new Date(item.createdAt).toLocaleString(lang === 'th' ? 'th-TH' : 'en-GB') %></td>
-            <td><span aria-hidden="true"><%= categoryInfo[item.category].icon %></span> <%= categoryInfo[item.category][lang] %></td>
+            <td class="whitespace-nowrap"><%= new Date(item.createdAt).toLocaleString(lang === 'th' ? 'th-TH' : 'en-GB') %></td>
+            <td class="whitespace-nowrap"><span aria-hidden="true"><%= categoryInfo[item.category].icon %></span> <%= categoryInfo[item.category][lang] %></td>
             <td><%= item.result.headline %></td>
             <td><span class="badge badge-<%= item.result.level %>"><%= item.result.level %></span></td>
-            <td><a href="/result/<%= item.id %>"><%= tr('เปิด', 'Open') %></a></td>
+            <td><a class="font-semibold underline decoration-astra-accent/40 hover:decoration-astra-violet" href="/result/<%= item.id %>"><%= tr('เปิด', 'Open') %></a></td>
             <td>
               <form method="post" action="/history/<%= item.id %>/delete">
                 <button class="btn btn-danger btn-small" type="submit" aria-label="<%= tr('ลบคำทำนายนี้', 'Delete this reading') %>"><%= tr('ลบ', 'Delete') %></button>

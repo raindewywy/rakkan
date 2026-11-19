@@ -4,10 +4,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0A0D18">
   <title><%= locals.title ? locals.title + ' | Astra' : 'Astra' %></title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+  <%# Tailwind (Play CDN). Preflight is off so base.css keeps control of the page; the site still
+      looks right if this script cannot be loaded, the utilities only add polish. %>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    if (window.tailwind) {
+      tailwind.config = {
+        corePlugins: { preflight: false },
+        theme: {
+          extend: {
+            colors: {
+              astra: {
+                bg: '#0A0D18', glow: '#1D2450', gold: '#E8C07A', violet: '#C9B6F5',
+                accent: '#8E9BFF', text: '#F2F1EC', muted: '#A4A9BD', error: '#E8836B',
+                success: '#6FCF97', warning: '#F0C46B'
+              }
+            },
+            fontFamily: {
+              display: ['Cormorant Garamond', 'Georgia', 'serif'],
+              body: ['Manrope', 'Noto Sans Thai', 'system-ui', 'sans-serif']
+            },
+            borderRadius: { astra: '18px' },
+            transitionDuration: { astra: '160ms' }
+          }
+        }
+      };
+    }
+  </script>
   <link rel="stylesheet" href="/css/base.css">
   <% (locals.styles || []).forEach(function (href) { %>
   <link rel="stylesheet" href="<%= href %>">
@@ -16,13 +44,16 @@
 <body>
 <a class="skip-link" href="#main"><%= t('ข้ามไปที่เนื้อหา', 'Skip to content') %></a>
 <header class="site-header">
-  <a class="brand" href="/">Astra</a>
+  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">◈</span><span>Astra</span></a>
   <nav class="site-nav" aria-label="<%= t('เมนูหลัก', 'Main menu') %>">
     <a href="/predict"><%= t('ดูดวง', 'Predict') %></a>
     <a href="/history"><%= t('ประวัติ', 'History') %></a>
   </nav>
   <div class="site-actions">
-    <span class="lang-toggle"><a href="/lang/th">TH</a><a href="/lang/en">EN</a></span>
+    <span class="lang-toggle">
+      <a href="/lang/th" class="<%= (locals.lang || 'th') === 'th' ? 'is-active' : '' %>" <%- (locals.lang || 'th') === 'th' ? 'aria-current="true"' : '' %>>TH</a>
+      <a href="/lang/en" class="<%= (locals.lang || 'th') === 'en' ? 'is-active' : '' %>" <%- (locals.lang || 'th') === 'en' ? 'aria-current="true"' : '' %>>EN</a>
+    </span>
     <% if (locals.user) { %>
       <span class="user-name"><%= user.displayName %></span>
       <form method="post" action="/logout">
