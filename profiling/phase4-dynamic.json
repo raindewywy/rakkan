@@ -1,9 +1,9 @@
 {
   "phase": "phase4",
-  "generatedAt": "2026-11-17T09:13:40.948Z",
-  "sourceCommit": "32f4a322a3b1d294b0c84bfee2f97621a667e9b6",
-  "node": "v24.13.1",
-  "cpu": "13th Gen Intel(R) Core(TM) i7-13620H",
+  "generatedAt": "2026-11-19T14:01:24.757Z",
+  "sourceCommit": "075f11a029bfa0939af953d73655e7be0addc86f",
+  "node": "v24.18.0",
+  "cpu": "13th Gen Intel(R) Core(TM) i5-13420H",
   "platform": "win32",
   "apiMode": "local",
   "language": "th",
@@ -16,60 +16,55 @@
       "status": 200,
       "available": true,
       "runs": 50,
-      "avg": 3.67,
-      "min": 3.14,
-      "max": 4.54,
-      "p95": 4.37,
-      "heapKB": 6071
+      "avg": 12.39,
+      "min": 8.45,
+      "max": 21.28,
+      "p95": 18.17,
+      "heapKB": 1718
     },
     {
       "name": "GET /predict",
       "status": 200,
       "available": true,
       "runs": 50,
-      "avg": 5.16,
-      "min": 3.08,
-      "max": 16.83,
-      "p95": 9.28,
-      "heapKB": 748
+      "avg": 10.87,
+      "min": 8.03,
+      "max": 15.12,
+      "p95": 13.65,
+      "heapKB": 2812
     },
     {
       "name": "POST /predict",
       "status": 303,
       "available": true,
       "runs": 50,
-      "avg": 1.71,
-      "min": 1.44,
-      "max": 2.32,
-      "p95": 1.99,
-      "heapKB": 859
+      "avg": 4.73,
+      "min": 3.64,
+      "max": 7.04,
+      "p95": 6.71,
+      "heapKB": 1455
     },
     {
       "name": "GET /result/:id",
       "status": 200,
       "available": true,
       "runs": 50,
-      "avg": 4.05,
-      "min": 3.13,
-      "max": 12.24,
-      "p95": 5.59,
-      "heapKB": 167
+      "avg": 11.21,
+      "min": 8.12,
+      "max": 18.73,
+      "p95": 14.63,
+      "heapKB": -3065
     },
     {
       "name": "GET /history",
       "status": 200,
       "available": true,
       "runs": 50,
-      "avg": 5.7,
-      "min": 3.53,
-      "max": 17.24,
-      "p95": 11.44,
-      "heapKB": 1800
-    },
-    {
-      "name": "GET /stats",
-      "status": 404,
-      "available": false
+      "avg": 16.59,
+      "min": 10.73,
+      "max": 22.64,
+      "p95": 20.72,
+      "heapKB": 3268
     }
   ]
 }
