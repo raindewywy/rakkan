@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
 <main id="main" class="home">
   <section class="hero">
-    <p class="eyebrow"><%= tr('ดวงของคุณ ใต้แสงดาว', 'Your stars, gently read') %></p>
+    <p class="eyebrow inline-flex items-center gap-3"><span class="h-px w-8 bg-astra-gold/60" aria-hidden="true"></span><%= tr('ดวงของคุณ ใต้แสงดาว', 'Your stars, gently read') %></p>
     <h1>Astra</h1>
     <p class="lead">
       <%= tr('เลือกหมวดที่อยากรู้ ใส่วันเกิด แล้วรับคำทำนายที่เก็บไว้ในประวัติของคุณโดยอัตโนมัติ',
@@ -23,7 +23,7 @@
   </section>
 
   <% if (locals.stats) { %>
-    <section class="stats card" aria-label="<%= tr('สถิติของคุณ', 'Your statistics') %>">
+    <section class="stats card backdrop-blur-sm" aria-label="<%= tr('สถิติของคุณ', 'Your statistics') %>">
       <h2><%= tr('สถิติของคุณ', 'Your statistics') %></h2>
       <p><%= tr('จำนวนครั้งที่ดูดวง', 'Total readings') %>: <strong><%= stats.total %></strong></p>
       <p>

@@ -12,9 +12,9 @@
     <fieldset class="categories">
       <legend class="visually-hidden"><%= tr('หมวดดูดวง', 'Category') %></legend>
       <% categories.forEach(function (key) { %>
-        <label class="category-card">
+        <label class="category-card group">
           <input type="radio" name="category" value="<%= key %>" <%= values.category === key ? 'checked' : '' %>>
-          <span class="icon" aria-hidden="true"><%= categoryInfo[key].icon %></span>
+          <span class="icon transition-transform duration-astra group-hover:scale-105 motion-reduce:transition-none" aria-hidden="true"><%= categoryInfo[key].icon %></span>
           <span class="label"><%= categoryInfo[key][lang] %></span>
         </label>
       <% }); %>
@@ -40,7 +40,7 @@
         <input type="date" id="calendar" min="1900-01-01" max="<%= new Date().toISOString().slice(0, 10) %>">
       </label>
     </fieldset>
-    <button class="btn btn-primary" type="submit"><%= tr('ดูคำทำนาย', 'Reveal my reading') %></button>
+    <button class="btn btn-primary mt-2" type="submit"><%= tr('ดูคำทำนาย', 'Reveal my reading') %></button>
   </form>
   <div id="processing" class="processing" hidden aria-live="polite">
     <span class="orb" aria-hidden="true"></span>
