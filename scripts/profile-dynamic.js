@@ -27,8 +27,7 @@ const ROUTES = [
   { name: 'GET /predict', method: 'get', url: '/predict', expectedStatus: 200 },
   { name: 'POST /predict', method: 'post', url: '/predict', expectedStatus: 303, form: { category: 'love', day: '17', month: '5', year: '1999' } },
   { name: 'GET /result/:id', method: 'get', url: '/result/:id', expectedStatus: 200 },
-  { name: 'GET /history', method: 'get', url: '/history', expectedStatus: 200 },
-  { name: 'GET /stats', method: 'get', url: '/stats', expectedStatus: 200, optional: true }
+  { name: 'GET /history', method: 'get', url: '/history', expectedStatus: 200 }
 ];
 
 function argValue(flag, fallback) {

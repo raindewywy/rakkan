@@ -1,8 +1,8 @@
 # Static profiling - phase4
 
-- Generated: 2026-11-17T09:13:31.657Z
-- Source commit: 32f4a322a3b1d294b0c84bfee2f97621a667e9b6
-- Node: v24.13.1
+- Generated: 2026-11-19T14:00:20.887Z
+- Source commit: 075f11a029bfa0939af953d73655e7be0addc86f
+- Node: v24.18.0
 - Function counts and complexity are regex estimates, not AST measurements.
 
 | File | LOC | Functions (approx.) | Complexity (approx.) |

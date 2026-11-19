@@ -3,9 +3,12 @@
 ## Recorded baseline and its limits
 
 The `phase3-*.md` and `phase3-*.json` files are real measurements captured on
-**16 November 2026**, after the planned 9 November checkpoint. The `phase3`
+**19 November 2026**, after the planned 9 November checkpoint. The `phase3`
 filename is the ticket's baseline label; these are not historical measurements
-from 9 November.
+from 9 November. The baseline and the final capture were both re-run on the same
+machine with the same Node version (24.18.0), a few seconds apart, so that the
+comparison no longer mixes machines or Node versions. The profiling scripts were
+copied from main into the baseline checkout, because commit `0834805` predates them.
 
 The application source comes from main commit `0834805`, which already includes
 T10, T11, T16, T19 and T20. Each report records the exact measured checkout in
@@ -74,10 +77,16 @@ Keep Node flags, machine, input, language, request count and route order the sam
 when comparing captures. Desktop workload and garbage collection add noise, so
 small differences in a single run should not be reported as proven improvements.
 
-`GET /stats` is an optional probe and currently returns 404. Its row is marked
-unavailable, with no invented timings. Existing home-page statistics are included
-in `GET /`. Required routes and every timed response must return their expected
-status; a failed login, unexpected redirect, server error or timeout aborts capture.
+There is no separate statistics page in the final scope, so `GET /stats` is not
+measured; the home-page statistics are included in `GET /`. Every timed response
+must return its expected status; a failed login, unexpected redirect, server error
+or timeout aborts capture.
+
+Run-to-run noise is large on a desktop machine. In repeated alternating runs on
+19 November the average of one route moved by 20% or more between runs, and the very
+first run after a long idle period was about twice as slow as later ones. Differences
+between Phase 3 and Phase 4 of this size are therefore not proven improvements or
+regressions; describe them as "no clear change" in the report.
 
 The current results describe local HTTP rendering and fallback prediction only.
 They do not measure Google login, internet API latency, browser rendering or AWS.
