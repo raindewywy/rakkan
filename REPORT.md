@@ -171,10 +171,10 @@ graph TB
 
 ถ่ายจาก `main` ล่าสุด (`3955753` หลังปรับหน้าตาเว็บใน ticket 21\) ผ่าน Playwright (โหมด `E2E=1`, ภาษาไทย)
 
-| ![](./screenshots/web-01-home-guest.png)![][image1] หน้าแรก (ยังไม่ Login) | ![](./screenshots/web-02-home-logged-in.png) ![][image2] หน้าแรก (Login แล้ว มีสถิติ) | ![](./screenshots/web-03-select-category.png) ![][image3] เลือกหมวดและวันเกิด |
+| ![](./screenshots/nologin.png)![][image1] หน้าแรก (ยังไม่ Login) | ![](./screenshots/loginandstatistic.png) ![][image2] หน้าแรก (Login แล้ว มีสถิติ) | ![](./screenshots/categorybirth.png) ![][image3] เลือกหมวดและวันเกิด |
 | ----- | ----- | ----- |
-| ![](./screenshots/web-04-validation-error.png) ![][image4] Error ปีเกิดไม่ถูกต้อง (FR-05) | ![](./screenshots/web-05-result.png)![][image5] ผลเฉพาะหมวดที่เลือก \+ คำแนะนำ | ![](./screenshots/web-06-history.png)![][image6] ประวัติ ใหม่→เก่า |
-| ![](./screenshots/web-07-history-search.png) ![][image7] ค้นหา `finance` | ![](./screenshots/web-08-history-filter.png) ![][image8] กรองหมวด `love` | ![](./screenshots/web-09-404.png) ![][image9] หน้า 404 |
+| ![](./screenshots/britherror.png) ![][image4] Error ปีเกิดไม่ถูกต้อง (FR-05) | ![](./screenshots/resultja.png)![][image5] ผลเฉพาะหมวดที่เลือก \+ คำแนะนำ | ![](./screenshots/history.png)![][image6] ประวัติ ใหม่→เก่า |
+| ![](./screenshots/searchfinance.png) ![][image7] ค้นหา `จ่าย` | ![](./screenshots/filtherlove.png) ![][image8] กรองหมวด `love` | ![](./screenshots/404error.png) ![][image9] หน้า 404 |
 
 # 8\. การทดสอบ
 
