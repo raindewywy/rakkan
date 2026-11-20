@@ -60,20 +60,73 @@
 # 4\. Design
 
 **Architecture / Flow** (Figma 5 หน้าจอ: Home → Select → Birth Date \+ Error → Calendar \+ Processing → Result)
+```mermaid
+graph TD
+    User["User Browser"]
+    
+    subgraph Frontend_UI ["Frontend UI (Figma Screens)"]
+        W1["W1: Home Screen"]
+        W2["W2: Select Type Screen"]
+        W3["W3: Birth Date + Error"]
+        W4["W4: Calendar + Processing"]
+        W5["W5: Result Screen"]
+    end
+    
+    subgraph Backend_Endpoint ["Proposed Backend Processing"]
+        API["Proposed POST /api/v1/predict"]
+        Logic["Fortune Calculation Logic"]
+    end
 
-```
-graph LR
-    U["User Browser"] --> W1["Home / Login"]
-    W1 --> W2["Select category"]
-    W2 --> W3["Birth date + validation"]
-    W3 -->|"POST /predict"| S["Express: validate, zodiac, predictor"]
-    S -->|"API or local fallback"| R["Result (chosen category)"]
-    S --> H[("History in memory")]
-    R --> U
+    User -->|"1. Start"| W1
+    W1 -->|"2. Select Fortune Type"| W2
+    W2 -->|"3. Enter Birth Date"| W3
+    W3 -->|"4. Continue"| W4
+    W4 -->|"5. Submit Input"| API
+    API -->|"6. Calculate Fortune"| Logic
+    Logic -->|"7. Generate Result"| API
+    API -->|"8. Return Result"| W5
+    W5 -->|"9. View Fortune Result"| User
 ```
 
 **Use Case:** ผู้ใช้ดูหน้าแรก → เลือกหมวด → กรอกวันเกิด (include ตรวจข้อมูล, extend แสดง error) → ประมวลผล → คัดคำทำนาย → แสดงผลและคำแนะนำ → เริ่มใหม่ (UC-01 ถึง UC-10)
+```mermaid
+graph TB
+    User(("👤<br/>ผู้ใช้งาน<br/>(User)"))
 
+    subgraph System["ระบบดูดวงออนไลน์ (Fortune Telling Web Application)"]
+        UC1["UC-01<br/>ดูหน้าแรกและข้อมูลแนะนำเว็บไซต์"]
+        UC2["UC-02<br/>เลือกประเภทการดูดวง"]
+        UC3["UC-03<br/>กรอกข้อมูลวันเดือนปีเกิด"]
+        UC4["UC-04<br/>ตรวจสอบความถูกต้องของข้อมูล"]
+        UC5["UC-05<br/>แสดงข้อความแจ้งเตือนข้อผิดพลาด"]
+        UC6["UC-06<br/>ประมวลผลคำทำนาย<br/>(Fortune Algorithm)"]
+        UC7["UC-07<br/>คัดเลือกคำทำนายตามผลลัพธ์"]
+        UC8["UC-08<br/>แสดงผลคำทำนาย"]
+        UC9["UC-09<br/>แสดงคำแนะนำที่เกี่ยวข้อง"]
+        UC10["UC-10<br/>เริ่มดูดวงใหม่"]
+    end
+
+    User --- UC1
+    User --- UC2
+    User --- UC3
+    User --- UC8
+    User --- UC9
+    User --- UC10
+
+    UC3 -.->|&laquo;include&raquo;| UC4
+    UC4 -.->|&laquo;extend&raquo;| UC5
+    UC4 -.->|&laquo;include&raquo;| UC6
+    UC6 -.->|&laquo;include&raquo;| UC7
+    UC7 -.->|&laquo;include&raquo;| UC8
+    UC8 -.->|&laquo;include&raquo;| UC9
+    UC10 -.->|&laquo;include&raquo;| UC2
+
+    classDef actor fill:#ffe8d6,stroke:#c8553d,stroke-width:2px;
+    classDef usecase fill:#e8f0fe,stroke:#4a6fa5,stroke-width:1.5px;
+    class User actor;
+    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10 usecase;
+```
+# Design Specification
 ![Design Specification](./screenshots/design-specification.webp)
 
 **โครงสร้างโค้ด:** `routes/` → `controllers/` → `models/` (User, Prediction, PredictionHistory) และ `services/` (validator, zodiac, predictor, horoscopeClient, localReadings) · `views/*.ejs` · แยก Algorithm ออกจาก UI ตาม FR/NFR-06
